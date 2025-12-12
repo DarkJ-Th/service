@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เพื่อนช่าง</title>
+    <!-- เพิ่ม library สำหรับสร้าง PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -463,6 +466,32 @@
             }
         }
 
+        /* สำหรับพิมพ์ PDF */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .quote-content, .quote-content * {
+                visibility: visible;
+            }
+            
+            .quote-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                padding: 20px;
+                box-shadow: none;
+            }
+            
+            .btn-close, .btn-download {
+                display: none !important;
+            }
+        }
+
         .quote-modal {
             display: none;
             position: fixed;
@@ -543,6 +572,14 @@
         .btn-download {
             background: #2196F3;
             margin-top: 15px;
+        }
+        
+        .quote-content.pdf-mode {
+            background: white;
+            color: black;
+            margin: 0 auto;
+            box-shadow: none;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
@@ -681,7 +718,7 @@
         <div class="quote-content" id="quoteContent">
             <button class="btn-close" onclick="closeQuote()">×</button>
             <div id="quoteBody"></div>
-            <button class="btn-download" onclick="downloadQuote()">💾 บันทึกเป็นรูปภาพ</button>
+            <button class="btn-download" onclick="downloadQuote()">💾 บันทึกเป็น PDF</button>
         </div>
     </div>
 
@@ -765,9 +802,8 @@
                 return;
             }
 
-            // ขอให้ผู้ใช้ระบุเปอร์เซ็นต์ค่าแรง
             const laborPercent = prompt('ระบุเปอร์เซ็นต์ค่าแรง (%)', '30');
-            if (laborPercent === null) return; // ถ้ากด Cancel
+            if (laborPercent === null) return;
             
             const percent = parseFloat(laborPercent);
             if (isNaN(percent) || percent < 0) {
@@ -824,7 +860,59 @@
         }
 
         function downloadQuote() {
-            alert('กรุณาใช้ฟังก์ชัน Screenshot ของอุปกรณ์ของคุณเพื่อบันทึกใบเสนอราคา');
+            const quoteContent = document.getElementById('quoteContent');
+            
+            // แสดง loading message
+            const originalContent = quoteContent.innerHTML;
+            quoteContent.innerHTML = '<div style="text-align: center; padding: 50px;"><h2>กำลังสร้าง PDF...</h2><p>กรุณารอสักครู่</p></div>';
+            
+            // ใช้ html2canvas เพื่อแปลง HTML เป็น canvas
+            setTimeout(() => {
+                html2canvas(quoteContent, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                }).then(canvas => {
+                    // สร้าง PDF
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 190;
+                    const pageHeight = 297;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    let heightLeft = imgHeight;
+                    let position = 10;
+                    
+                    // เพิ่มภาพลงใน PDF
+                    const imgData = canvas.toDataURL('image/png', 1.0);
+                    
+                    pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight - 20;
+                    
+                    // เพิ่มหน้าหากเนื้อหายาวเกิน 1 หน้า
+                    while (heightLeft > 0) {
+                        position = heightLeft - imgHeight + 10;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight - 20;
+                    }
+                    
+                    // บันทึกไฟล์
+                    const date = new Date();
+                    const filename = `ใบเสนอราคา_${date.getDate()}${date.getMonth()+1}${date.getFullYear()}_${date.getHours()}${date.getMinutes()}.pdf`;
+                    pdf.save(filename);
+                    
+                    // คืนค่า HTML เดิม
+                    quoteContent.innerHTML = originalContent;
+                    
+                    alert('บันทึกใบเสนอราคาเป็น PDF สำเร็จแล้ว!');
+                }).catch(error => {
+                    console.error('Error generating PDF:', error);
+                    quoteContent.innerHTML = originalContent;
+                    alert('เกิดข้อผิดพลาดในการสร้าง PDF กรุณาลองใหม่อีกครั้ง');
+                });
+            }, 500);
         }
 
         function addWiringRow() {
@@ -1011,7 +1099,6 @@
                 }
                 materials[row.name].qty += row.qty;
 
-                // ไม่ต้องแสดง "ชิ้น" สำหรับอุปกรณ์เสริมทั้งหมด
                 let displayText = `${row.name}: ${row.qty}`;
 
                 displayItems.push({
@@ -1062,7 +1149,6 @@
 
             const calc = appData.wiringCalculation;
             
-            // นับจำนวนจุดทั้งหมดจากงานเดินไฟ
             let totalPoints = 0;
             appData.wiringRows.forEach(row => {
                 totalPoints += row.qty;
@@ -1133,10 +1219,6 @@
 
             document.getElementById('quoteBody').innerHTML = html;
             document.getElementById('quoteModal').style.display = 'block';
-        }
-
-        function saveAsImage(elementId) {
-            alert('กรุณาใช้ฟังก์ชัน Screenshot ของอุปกรณ์ของคุณเพื่อบันทึกผลลัพธ์');
         }
     </script>
 </body>
