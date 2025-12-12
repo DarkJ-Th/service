@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพื่อนช่าง</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            background: #f5f5f5;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .cabinet-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .input-section, .summary-section {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .input-section h3, .summary-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .add-row {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .add-row > div {
+            flex: 1;
+        }
+
+        .add-row > div:first-child {
+            flex: 2;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .item-list {
+            margin-top: 20px;
+        }
+
+        .item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-info strong {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .btn-edit {
+            background: #4CAF50;
+        }
+
+        .btn-delete {
+            background: #f44336;
+        }
+
+        .total-section {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .total-section h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .total-section .amount {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .btn-generate {
+            background: #4CAF50;
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+        }
+
+        .wiring-section {
+            max-width: 100%;
+        }
+
+        .wiring-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .wiring-inputs {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .input-row > div:first-child {
+            flex: 2;
+        }
+
+        .input-row > div:nth-child(2),
+        .input-row > div:nth-child(3) {
+            flex: 1;
+        }
+
+        .accessory-row {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .accessory-row > div:first-child {
+            flex: 2;
+        }
+
+        .accessory-row > div:nth-child(2) {
+            flex: 1;
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .result-box {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .result-box h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .result-item {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .btn-save {
+            background: #FF9800;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .cabinet-section, .results, .wiring-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .input-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .input-row > div {
+                width: 100%;
+                margin-bottom: 0;
+            }
+
+            .input-row button, .accessory-row button {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .accessory-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .accessory-row > div {
+                width: 100%;
+            }
+
+            .add-row {
+                flex-direction: column;
+            }
+
+            .add-row > div {
+                width: 100%;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .tab {
+                font-size: 0.85em;
+                padding: 12px 8px;
+            }
+
+            .result-box h3 {
+                font-size: 1.2em;
+            }
+
+            .container {
+                border-radius: 10px;
+            }
+
+            .tab-content {
+                padding: 15px;
+            }
+
+            .input-section, .summary-section, .wiring-inputs {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .input-section h3, .summary-section h3 {
+                font-size: 1.2em;
+            }
+
+            .form-group label {
+                font-size: 0.9em;
+            }
+
+            select, input {
+                padding: 10px;
+                font-size: 0.95em;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+
+            .item {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .item-actions {
+                width: 100%;
+                justify-content: stretch;
+            }
+
+            .item-actions button {
+                flex: 1;
+            }
+
+            .total-section {
+                padding: 15px;
+            }
+
+            .total-section h3 {
+                font-size: 1.3em;
+            }
+
+            .total-section .amount {
+                font-size: 1.8em;
+            }
+
+            .quote-content {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .quote-table {
+                font-size: 0.85em;
+            }
+
+            .quote-table th, .quote-table td {
+                padding: 8px 4px;
+            }
+
+            .btn-close {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .tab {
+                font-size: 0.8em;
+                padding: 10px 5px;
+            }
+
+            .quote-table {
+                font-size: 0.75em;
+            }
+
+            .quote-header h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        .quote-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .quote-content {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f44336;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            font-size: 1.5em;
+        }
+
+        .quote-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .quote-header h2 {
+            color: #667eea;
+            font-size: 2em;
+        }
+
+        .quote-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .quote-table th, .quote-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .quote-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .quote-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #667eea;
+        }
+
+        .note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .btn-download {
+            background: #2196F3;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ เพื่อนช่าง ⚡</h1>
+            <p>ระบบคำนวณราคาอุปกรณ์ไฟฟ้า</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(event, 'cabinet')">📦 ประกอบตู้</button>
+            <button class="tab" onclick="switchTab(event, 'wiring')">🔌 เดินไฟภายใน</button>
+        </div>
+
+        <div id="cabinet" class="tab-content active">
+            <div class="cabinet-section">
+                <div class="input-section">
+                    <h3>เลือกอุปกรณ์</h3>
+                    <div class="add-row">
+                        <div class="form-group">
+                            <label>ชื่อ อุปกรณ์</label>
+                            <select id="cabinetItem">
+                                <option value="">-- เลือกอุปกรณ์ --</option>
+                                <option value="เบรคเกอร์ 2p 30A|458">เบรคเกอร์ 2p 30A - 458฿</option>
+                                <option value="เบรคเกอร์ 3p 63A|588">เบรคเกอร์ 3p 63A - 588฿</option>
+                                <option value="โอเวอร์โหลด 9A|398">โอเวอร์โหลด 9A - 398฿</option>
+                                <option value="โอเวอร์โหลด 11A|498">โอเวอร์โหลด 11A - 498฿</option>
+                                <option value="โอเวอร์โหลด 25A|850">โอเวอร์โหลด 25A - 850฿</option>
+                                <option value="แม็คเนติก ST10|498">แม็คเนติก ST10 - 498฿</option>
+                                <option value="แม็คเนติก ST25|1530">แม็คเนติก ST25 - 1,530฿</option>
+                                <option value="แม็คเนติก ST35|1950">แม็คเนติก ST35 - 1,950฿</option>
+                                <option value="เฟสโปรเทคชัน|1800">เฟสโปรเทคชัน - 1,800฿</option>
+                                <option value="ตู้ #2|410">ตู้ #2 - 410฿</option>
+                                <option value="ตู้ #3|640">ตู้ #3 - 640฿</option>
+                                <option value="ตู้ #4|890">ตู้ #4 - 890฿</option>
+                                <option value="สวิต|48">สวิต - 48฿</option>
+                                <option value="Relay 220v|135">Relay 220v - 135฿</option>
+                                <option value="ไฟสถานะ|48">ไฟสถานะ - 48฿</option>
+                                <option value="ตู้แจ้งเตือนไฟดับ|1820">ตู้แจ้งเตือนไฟดับ - 1,820฿</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>จำนวน</label>
+                            <input type="number" id="cabinetQty" placeholder="จำนวน" min="1">
+                        </div>
+                        <button onclick="addCabinetItem()">เพิ่ม</button>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3>สรุปรายการ</h3>
+                    <div id="cabinetList" class="item-list"></div>
+                    <div class="total-section">
+                        <h3>ราคารวม</h3>
+                        <div class="amount" id="cabinetTotal">0 ฿</div>
+                    </div>
+                    <button class="btn-generate" onclick="generateCabinetQuote()">📄 สร้างใบเสนอราคา</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="wiring" class="tab-content">
+            <div class="wiring-section">
+                <div class="wiring-layout">
+                    <div class="input-section">
+                        <h3>เลือกการเดินไฟ</h3>
+                        <div class="add-row">
+                            <div class="form-group">
+                                <label>ประเภทงาน</label>
+                                <select id="wiringType">
+                                    <option value="">-- เลือกประเภทงาน --</option>
+                                    <option value="ปลั๊ค|150|2.5|กล่องลอย:1,หน้ากาก:1,ปลั๊คกราวด์คู่:1">ติดตั้งปลั๊กไฟ - 150฿/จุด</option>
+                                    <option value="สวิต|250|1.5|กล่องลอย:1,หน้ากาก:1">ติดตั้งสวิตไฟ - 250฿/จุด</option>
+                                    <option value="ตู้ MDB|3000|0|">ติดตั้งตู้ MDB + Main - 3,000฿</option>
+                                    <option value="แอร์|3500|0|">ติดตั้งแอร์ - 3,500฿</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>จำนวน (จุด)</label>
+                                <input type="number" id="wiringQty" placeholder="จำนวน" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label>ความยาว (ม.)</label>
+                                <input type="number" id="wiringLength" placeholder="ความยาว" min="0">
+                            </div>
+                            <button onclick="addWiringItem()">เพิ่ม</button>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">เลือกอุปกรณ์เสริม</h3>
+                        <div class="add-row">
+                            <div class="form-group">
+                                <label>อุปกรณ์เสริม</label>
+                                <select id="accessoryType">
+                                    <option value="">-- เลือกอุปกรณ์เสริม --</option>
+                                    <option value="ข้องอ 6หุน|7">ข้องอ 6หุน - 7฿</option>
+                                    <option value="กล่องแยกสาย|35">กล่องแยกสาย - 35฿</option>
+                                    <option value="สวิตไฟ|33">สวิตไฟ - 33฿</option>
+                                    <option value="รางเดินสาย|56">รางเดินสาย - 56฿</option>
+                                    <option value="ท่อ 6หุน|8">ท่อ 6หุน - 8฿</option>
+                                    <option value="ตู้ MDB กันดูด 6ch|2180">ตู้ MDB กันดูด 6ch - 2,180฿</option>
+                                    <option value="ตู้ MDB 8ch|1763">ตู้ MDB 8ch - 1,763฿</option>
+                                    <option value="ตู้ MDB 6ch|1448">ตู้ MDB 6ch - 1,448฿</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>จำนวน</label>
+                                <input type="number" id="accessoryQty" placeholder="จำนวน" min="1">
+                            </div>
+                            <button onclick="addAccessoryItem()">เพิ่ม</button>
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>สรุปรายการ</h3>
+                        <div id="wiringSummaryList" class="item-list"></div>
+                        
+                        <div class="total-section" style="background: #FF9800;">
+                            <h3>ค่าแรงเป็นจุด</h3>
+                            <div class="amount" id="laborOnlyTotal">0 ฿</div>
+                        </div>
+
+                        <div class="total-section" style="margin-top: 15px;">
+                            <h3>รวมค่าแรง + อุปกรณ์</h3>
+                            <div class="amount" id="wiringGrandTotal">0 ฿</div>
+                        </div>
+
+                        <button class="btn-generate" onclick="generateWiringQuote()">📄 สร้างใบเสนอราคา</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quoteModal" class="quote-modal">
+        <div class="quote-content" id="quoteContent">
+            <button class="btn-close" onclick="closeQuote()">×</button>
+            <div id="quoteBody"></div>
+            <button class="btn-download" onclick="downloadQuote()">💾 บันทึกเป็นรูปภาพ</button>
+        </div>
+    </div>
+
+    <script>
+        const appData = {
+            cabinetItems: [],
+            wiringRows: [],
+            accessoryRows: []
+        };
+
+        function switchTab(event, tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
+        }
+
+        function addCabinetItem() {
+            const select = document.getElementById('cabinetItem');
+            const qty = parseInt(document.getElementById('cabinetQty').value);
+            
+            if (!select.value || !qty || qty < 1) {
+                alert('กรุณาเลือกอุปกรณ์และระบุจำนวน');
+                return;
+            }
+
+            const [name, price] = select.value.split('|');
+            appData.cabinetItems.push({
+                id: Date.now(),
+                name: name,
+                price: parseInt(price),
+                qty: qty
+            });
+
+            updateCabinetList();
+            select.value = '';
+            document.getElementById('cabinetQty').value = '';
+        }
+
+        function updateCabinetList() {
+            const list = document.getElementById('cabinetList');
+            const total = document.getElementById('cabinetTotal');
+            
+            list.innerHTML = appData.cabinetItems.map(item => `
+                <div class="item">
+                    <div class="item-info">
+                        <strong>${item.name}</strong><br>
+                        <span>จำนวน: ${item.qty} | ราคา/หน่วย: ${item.price.toLocaleString()}฿ | รวม: ${(item.qty * item.price).toLocaleString()}฿</span>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="editCabinetItem(${item.id})">แก้ไข</button>
+                        <button class="btn-delete" onclick="deleteCabinetItem(${item.id})">ลบ</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const totalAmount = appData.cabinetItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
+            total.textContent = totalAmount.toLocaleString() + ' ฿';
+        }
+
+        function editCabinetItem(id) {
+            const item = appData.cabinetItems.find(i => i.id === id);
+            const newQty = prompt('ระบุจำนวนใหม่:', item.qty);
+            if (newQty && parseInt(newQty) > 0) {
+                item.qty = parseInt(newQty);
+                updateCabinetList();
+            }
+        }
+
+        function deleteCabinetItem(id) {
+            if (confirm('ต้องการลบรายการนี้?')) {
+                appData.cabinetItems = appData.cabinetItems.filter(i => i.id !== id);
+                updateCabinetList();
+            }
+        }
+
+        function generateCabinetQuote() {
+            if (appData.cabinetItems.length === 0) {
+                alert('กรุณาเพิ่มอุปกรณ์อย่างน้อย 1 รายการ');
+                return;
+            }
+
+            // ขอให้ผู้ใช้ระบุเปอร์เซ็นต์ค่าแรง
+            const laborPercent = prompt('ระบุเปอร์เซ็นต์ค่าแรง (%)', '30');
+            if (laborPercent === null) return; // ถ้ากด Cancel
+            
+            const percent = parseFloat(laborPercent);
+            if (isNaN(percent) || percent < 0) {
+                alert('กรุณาระบุเปอร์เซ็นต์ค่าแรงที่ถูกต้อง');
+                return;
+            }
+
+            const subtotal = appData.cabinetItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
+            const labor = Math.round(subtotal * (percent / 100));
+            const total = subtotal + labor;
+
+            const html = `
+                <div class="quote-header">
+                    <h2>ใบเสนอราคา - ประกอบตู้</h2>
+                    <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
+                    <p style="color: #FF9800; font-weight: bold;">เปอร์เซ็นต์ค่าแรง: ${percent}%</p>
+                </div>
+                <table class="quote-table">
+                    <thead>
+                        <tr>
+                            <th>รายการ</th>
+                            <th>จำนวน</th>
+                            <th>ราคา/หน่วย</th>
+                            <th>รวม</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${appData.cabinetItems.map(item => `
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>${item.qty}</td>
+                                <td>${item.price.toLocaleString()}฿</td>
+                                <td>${(item.qty * item.price).toLocaleString()}฿</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                <div class="quote-footer">
+                    <p><strong>ราคาอุปกรณ์:</strong> ${subtotal.toLocaleString()}฿</p>
+                    <p><strong>ค่าแรง ${percent}%:</strong> ${labor.toLocaleString()}฿</p>
+                    <h3 style="color: #667eea; font-size: 1.8em;">รวมทั้งสิ้น: ${total.toLocaleString()}฿</h3>
+                </div>
+                <div class="note">
+                    <strong>หมายเหตุ:</strong> ราคาอุปกรณ์อ้างอิงจากไทยวัสดุ
+                </div>
+            `;
+
+            document.getElementById('quoteBody').innerHTML = html;
+            document.getElementById('quoteModal').style.display = 'block';
+        }
+
+        function closeQuote() {
+            document.getElementById('quoteModal').style.display = 'none';
+        }
+
+        function downloadQuote() {
+            alert('กรุณาใช้ฟังก์ชัน Screenshot ของอุปกรณ์ของคุณเพื่อบันทึกใบเสนอราคา');
+        }
+
+        function addWiringRow() {
+            appData.wiringRows.push({
+                id: Date.now(),
+                type: '',
+                qty: '',
+                length: ''
+            });
+            updateWiringInputs();
+        }
+
+        function addAccessoryRow() {
+            appData.accessoryRows.push({
+                id: Date.now(),
+                type: '',
+                qty: ''
+            });
+            updateAccessoryInputs();
+        }
+
+        function addWiringItem() {
+            const select = document.getElementById('wiringType');
+            const qty = parseInt(document.getElementById('wiringQty').value);
+            const length = parseFloat(document.getElementById('wiringLength').value) || 0;
+            
+            if (!select.value || !qty || qty < 1) {
+                alert('กรุณาเลือกประเภทงานและระบุจำนวน');
+                return;
+            }
+
+            const parts = select.value.split('|');
+            const typeName = parts[0];
+            const price = parseInt(parts[1]);
+            const wireSize = parts[2];
+            const autoMaterials = parts[3] || '';
+
+            appData.wiringRows.push({
+                id: Date.now(),
+                type: select.value,
+                typeName: typeName,
+                qty: qty,
+                length: length,
+                price: price,
+                wireSize: wireSize,
+                autoMaterials: autoMaterials
+            });
+
+            calculateWiringSummary();
+            select.value = '';
+            document.getElementById('wiringQty').value = '';
+            document.getElementById('wiringLength').value = '';
+        }
+
+        function addAccessoryItem() {
+            const select = document.getElementById('accessoryType');
+            const qty = parseInt(document.getElementById('accessoryQty').value);
+            
+            if (!select.value || !qty || qty < 1) {
+                alert('กรุณาเลือกอุปกรณ์และระบุจำนวน');
+                return;
+            }
+
+            const [name, price] = select.value.split('|');
+            
+            appData.accessoryRows.push({
+                id: Date.now(),
+                type: select.value,
+                name: name,
+                qty: qty,
+                price: parseInt(price)
+            });
+
+            calculateWiringSummary();
+            select.value = '';
+            document.getElementById('accessoryQty').value = '';
+        }
+
+        function editWiringItem(id) {
+            const item = appData.wiringRows.find(i => i.id === id);
+            if (!item) return;
+
+            const newQty = prompt('ระบุจำนวนใหม่ (จุด):', item.qty);
+            if (newQty && parseInt(newQty) > 0) {
+                item.qty = parseInt(newQty);
+                
+                if (item.wireSize !== '0') {
+                    const newLength = prompt('ระบุความยาวใหม่ (เมตร):', item.length);
+                    if (newLength !== null) {
+                        item.length = parseFloat(newLength) || 0;
+                    }
+                }
+                
+                calculateWiringSummary();
+            }
+        }
+
+        function deleteWiringItem(id) {
+            if (confirm('ต้องการลบรายการนี้?')) {
+                appData.wiringRows = appData.wiringRows.filter(i => i.id !== id);
+                calculateWiringSummary();
+            }
+        }
+
+        function editAccessoryItem(id) {
+            const item = appData.accessoryRows.find(i => i.id === id);
+            if (!item) return;
+
+            const newQty = prompt('ระบุจำนวนใหม่:', item.qty);
+            if (newQty && parseInt(newQty) > 0) {
+                item.qty = parseInt(newQty);
+                calculateWiringSummary();
+            }
+        }
+
+        function deleteAccessoryItem(id) {
+            if (confirm('ต้องการลบรายการนี้?')) {
+                appData.accessoryRows = appData.accessoryRows.filter(i => i.id !== id);
+                calculateWiringSummary();
+            }
+        }
+
+        function calculateWiringSummary() {
+            let laborTotal = 0;
+            let materialTotal = 0;
+            let displayItems = [];
+            let materials = {};
+            
+            const materialPrices = {
+                'หน้ากาก': 50,
+                'กล่องลอย': 80,
+                'ปลั๊คกราวด์คู่': 175
+            };
+
+            appData.wiringRows.forEach(row => {
+                const laborCost = row.price * row.qty;
+                laborTotal += laborCost;
+                
+                let itemText = `${row.typeName}: ${row.qty} จุด`;
+                if (row.length > 0 && row.wireSize !== '0') {
+                    itemText += ` (ความยาว ${row.length}ม.)`;
+                }
+
+                displayItems.push({
+                    id: row.id,
+                    text: itemText,
+                    price: row.price,
+                    qty: row.qty,
+                    total: laborCost,
+                    type: 'wiring'
+                });
+
+                if (row.wireSize !== '0' && row.length > 0) {
+                    const wireName = `สายไฟ ${row.wireSize}`;
+                    const wirePrice = row.wireSize === '1.5' ? 10 : 19;
+                    
+                    if (!materials[wireName]) {
+                        materials[wireName] = { qty: 0, price: wirePrice, unit: 'เมตร' };
+                    }
+                    materials[wireName].qty += row.length;
+                }
+
+                if (row.autoMaterials) {
+                    const matList = row.autoMaterials.split(',');
+                    matList.forEach(mat => {
+                        const [matName, matQty] = mat.split(':');
+                        if (matName && matQty) {
+                            if (!materials[matName]) {
+                                materials[matName] = { 
+                                    qty: 0, 
+                                    price: materialPrices[matName] || 0, 
+                                    unit: 'ชิ้น' 
+                                };
+                            }
+                            materials[matName].qty += parseInt(matQty) * row.qty;
+                        }
+                    });
+                }
+            });
+
+            appData.accessoryRows.forEach(row => {
+                if (!materials[row.name]) {
+                    materials[row.name] = { qty: 0, price: row.price, unit: 'ชิ้น' }; 
+                }
+                materials[row.name].qty += row.qty;
+
+                // ไม่ต้องแสดง "ชิ้น" สำหรับอุปกรณ์เสริมทั้งหมด
+                let displayText = `${row.name}: ${row.qty}`;
+
+                displayItems.push({
+                    id: row.id,
+                    text: displayText,
+                    price: row.price,
+                    qty: row.qty,
+                    total: row.price * row.qty,
+                    type: 'accessory'
+                });
+            });
+
+            Object.entries(materials).forEach(([name, data]) => {
+                materialTotal += data.qty * data.price;
+            });
+
+            const summaryList = document.getElementById('wiringSummaryList');
+            summaryList.innerHTML = displayItems.map(item => `
+                <div class="item">
+                    <div class="item-info">
+                        <strong>${item.text}</strong><br>
+                        <span>ราคา/หน่วย: ${item.price.toLocaleString()}฿ | รวม: ${item.total.toLocaleString()}฿</span>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="${item.type === 'wiring' ? 'editWiringItem' : 'editAccessoryItem'}(${item.id})">แก้ไข</button>
+                        <button class="btn-delete" onclick="${item.type === 'wiring' ? 'deleteWiringItem' : 'deleteAccessoryItem'}(${item.id})">ลบ</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('laborOnlyTotal').textContent = laborTotal.toLocaleString() + ' ฿';
+            document.getElementById('wiringGrandTotal').textContent = (laborTotal + materialTotal).toLocaleString() + ' ฿';
+
+            appData.wiringCalculation = {
+                laborTotal: laborTotal,
+                materialTotal: materialTotal,
+                grandTotal: laborTotal + materialTotal,
+                materials: materials,
+                displayItems: displayItems
+            };
+        }
+
+        function generateWiringQuote() {
+            if (!appData.wiringCalculation || appData.wiringCalculation.displayItems.length === 0) {
+                alert('กรุณาเพิ่มรายการอย่างน้อย 1 รายการ');
+                return;
+            }
+
+            // ขอให้ผู้ใช้ระบุเปอร์เซ็นต์ค่าแรง
+            const laborPercent = prompt('ระบุเปอร์เซ็นต์ค่าแรงเพิ่มเติม (%)', '0');
+            if (laborPercent === null) return; // ถ้ากด Cancel
+            
+            const percent = parseFloat(laborPercent);
+            if (isNaN(percent) || percent < 0) {
+                alert('กรุณาระบุเปอร์เซ็นต์ค่าแรงที่ถูกต้อง');
+                return;
+            }
+
+            const calc = appData.wiringCalculation;
+            
+            // คำนวณค่าแรงเพิ่มเติมจากเปอร์เซ็นต์ (เฉพาะส่วนอุปกรณ์)
+            const additionalLabor = Math.round(calc.materialTotal * (percent / 100));
+            const totalWithAdditionalLabor = calc.grandTotal + additionalLabor;
+
+            let allItems = [];
+
+            appData.wiringRows.forEach(row => {
+                allItems.push({
+                    name: row.typeName,
+                    qty: row.qty,
+                    unit: 'จุด',
+                    price: row.price,
+                    total: row.price * row.qty
+                });
+            });
+
+            Object.entries(calc.materials).forEach(([name, data]) => {
+                const qtyDisplay = data.unit === 'เมตร' ? data.qty.toFixed(2) : data.qty;
+                const unitToShow = data.unit === 'ชิ้น' ? '' : data.unit;
+                
+                allItems.push({
+                    name: name,
+                    qty: qtyDisplay,
+                    unit: unitToShow,
+                    price: data.price,
+                    total: data.qty * data.price
+                });
+            });
+
+            const html = `
+                <div class="quote-header">
+                    <h2>ใบเสนอราคา - เดินไฟภายใน</h2>
+                    <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
+                    ${percent > 0 ? `<p style="color: #FF9800; font-weight: bold;">เปอร์เซ็นต์ค่าแรงเพิ่มเติม: ${percent}% (จากราคาอุปกรณ์)</p>` : ''}
+                </div>
+                <table class="quote-table">
+                    <thead>
+                        <tr>
+                            <th>รายการ</th>
+                            <th>จำนวน</th>
+                            <th>ราคา/หน่วย</th>
+                            <th>รวม</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${allItems.map(item => `
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>${item.qty}${item.unit ? ' ' + item.unit : ''}</td>
+                                <td>${item.price.toLocaleString()}฿</td>
+                                <td>${item.total.toLocaleString()}฿</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                <div class="quote-footer">
+                    <div style="background: #FF9800; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="margin: 0;">💰 ค่าแรงเป็นจุด: ${calc.laborTotal.toLocaleString()}฿</h3>
+                    </div>
+                    <p><strong>ค่าอุปกรณ์:</strong> ${calc.materialTotal.toLocaleString()}฿</p>
+                    <p><strong>ค่าแรงเป็นจุด:</strong> ${calc.laborTotal.toLocaleString()}฿</p>
+                    ${percent > 0 ? `<p><strong>ค่าแรงเพิ่มเติม ${percent}% (จากอุปกรณ์):</strong> ${additionalLabor.toLocaleString()}฿</p>` : ''}
+                    <h3 style="color: #667eea; font-size: 1.8em;">รวมค่าแรง + อุปกรณ์: ${totalWithAdditionalLabor.toLocaleString()}฿</h3>
+                </div>
+                <div class="note">
+                    <strong>หมายเหตุ:</strong> ราคาอุปกรณ์อ้างอิงราคาจากไทยวัสดุ 
+                </div>
+            `;
+
+            document.getElementById('quoteBody').innerHTML = html;
+            document.getElementById('quoteModal').style.display = 'block';
+        }
+
+        function saveAsImage(elementId) {
+            alert('กรุณาใช้ฟังก์ชัน Screenshot ของอุปกรณ์ของคุณเพื่อบันทึกผลลัพธ์');
+        }
+    </script>
+</body>
+</html>
