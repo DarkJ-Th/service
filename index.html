@@ -1060,21 +1060,13 @@
                 return;
             }
 
-            // ขอให้ผู้ใช้ระบุเปอร์เซ็นต์ค่าแรง
-            const laborPercent = prompt('ระบุเปอร์เซ็นต์ค่าแรงเพิ่มเติม (%)', '0');
-            if (laborPercent === null) return; // ถ้ากด Cancel
-            
-            const percent = parseFloat(laborPercent);
-            if (isNaN(percent) || percent < 0) {
-                alert('กรุณาระบุเปอร์เซ็นต์ค่าแรงที่ถูกต้อง');
-                return;
-            }
-
             const calc = appData.wiringCalculation;
             
-            // คำนวณค่าแรงเพิ่มเติมจากเปอร์เซ็นต์ (เฉพาะส่วนอุปกรณ์)
-            const additionalLabor = Math.round(calc.materialTotal * (percent / 100));
-            const totalWithAdditionalLabor = calc.grandTotal + additionalLabor;
+            // นับจำนวนจุดทั้งหมดจากงานเดินไฟ
+            let totalPoints = 0;
+            appData.wiringRows.forEach(row => {
+                totalPoints += row.qty;
+            });
 
             let allItems = [];
 
@@ -1105,7 +1097,6 @@
                 <div class="quote-header">
                     <h2>ใบเสนอราคา - เดินไฟภายใน</h2>
                     <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
-                    ${percent > 0 ? `<p style="color: #FF9800; font-weight: bold;">เปอร์เซ็นต์ค่าแรงเพิ่มเติม: ${percent}% (จากราคาอุปกรณ์)</p>` : ''}
                 </div>
                 <table class="quote-table">
                     <thead>
@@ -1129,12 +1120,11 @@
                 </table>
                 <div class="quote-footer">
                     <div style="background: #FF9800; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                        <h3 style="margin: 0;">💰 ค่าแรงเป็นจุด: ${calc.laborTotal.toLocaleString()}฿</h3>
+                        <h3 style="margin: 0;">💰 ค่าแรง ${totalPoints} จุดติดตั้ง: ${calc.laborTotal.toLocaleString()}฿</h3>
                     </div>
                     <p><strong>ค่าอุปกรณ์:</strong> ${calc.materialTotal.toLocaleString()}฿</p>
-                    <p><strong>ค่าแรงเป็นจุด:</strong> ${calc.laborTotal.toLocaleString()}฿</p>
-                    ${percent > 0 ? `<p><strong>ค่าแรงเพิ่มเติม ${percent}% (จากอุปกรณ์):</strong> ${additionalLabor.toLocaleString()}฿</p>` : ''}
-                    <h3 style="color: #667eea; font-size: 1.8em;">รวมค่าแรง + อุปกรณ์: ${totalWithAdditionalLabor.toLocaleString()}฿</h3>
+                    <p><strong>ค่าแรงติดตั้ง:</strong> ${calc.laborTotal.toLocaleString()}฿</p>
+                    <h3 style="color: #667eea; font-size: 1.8em;">รวมค่าแรง + อุปกรณ์: ${calc.grandTotal.toLocaleString()}฿</h3>
                 </div>
                 <div class="note">
                     <strong>หมายเหตุ:</strong> ราคาอุปกรณ์อ้างอิงราคาจากไทยวัสดุ 
