@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เพื่อนช่าง</title>
+    
+    <!-- Favicon สำหรับทุกอุปกรณ์ -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- ถ้ามีไอคอนเดียวใช้ชื่อ icon.png -->
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <link rel="icon" href="icon.png" type="image/x-icon">
+    
+    <!-- สำหรับ PWA -->
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="apple-mobile-web-app-title" content="เพื่อนช่าง">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- สำหรับ Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
     <style>
         * {
             margin: 0;
@@ -32,6 +55,30 @@
             color: white;
             padding: 30px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .header-text {
+            text-align: left;
         }
 
         .header h1 {
@@ -305,6 +352,21 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .header-text {
+                text-align: center;
+            }
+            
+            .logo {
+                width: 70px;
+                height: 70px;
+            }
+            
             .cabinet-section, .results, .wiring-layout {
                 grid-template-columns: 1fr;
             }
@@ -447,6 +509,11 @@
 
             .header h1 {
                 font-size: 1.5em;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
             }
 
             .tab {
@@ -605,8 +672,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚡ เพื่อนช่าง ⚡</h1>
-            <p>ระบบคำนวณราคาอุปกรณ์ไฟฟ้า</p>
+            <div class="logo-container">
+                <img src="icon.png" alt="ไอคอนเพื่อนช่าง" class="logo">
+            </div>
+            <div class="header-text">
+                <h1>⚡ เพื่อนช่าง ⚡</h1>
+                <p>ระบบคำนวณราคาอุปกรณ์ไฟฟ้า</p>
+            </div>
         </div>
 
         <div class="tabs">
@@ -849,8 +921,13 @@
 
             const html = `
                 <div class="quote-header">
-                    <h2>ใบเสนอราคา - ประกอบตู้</h2>
-                    <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
+                        <img src="icon.png" alt="ไอคอนเพื่อนช่าง" style="width: 60px; height: 60px; border-radius: 10px;">
+                        <div>
+                            <h2>ใบเสนอราคา - ประกอบตู้</h2>
+                            <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
+                        </div>
+                    </div>
                     <p style="color: #FF9800; font-weight: bold;">ค่าแรง: ${percent}%</p>
                 </div>
                 <table class="quote-table">
@@ -1215,8 +1292,13 @@
 
             const html = `
                 <div class="quote-header">
-                    <h2>ใบเสนอราคา - เดินไฟภายใน</h2>
-                    <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
+                        <img src="icon.png" alt="ไอคอนเพื่อนช่าง" style="width: 60px; height: 60px; border-radius: 10px;">
+                        <div>
+                            <h2>ใบเสนอราคา - เดินไฟภายใน</h2>
+                            <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
+                        </div>
+                    </div>
                 </div>
                 <table class="quote-table">
                     <thead>
@@ -1254,6 +1336,24 @@
             document.getElementById('quoteBody').innerHTML = html;
             document.getElementById('quoteModal').style.display = 'block';
         }
+        
+        // ตั้งค่าสำหรับการบันทึกเป็น PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(() => console.log('Service Worker Registered'))
+                    .catch(err => console.log('Service Worker Registration Failed: ', err));
+            });
+        }
+        
+        // เพิ่มแบนเนอร์ติดตั้งแอพ
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            const installPrompt = e;
+            
+            // สามารถแสดงปุ่มติดตั้งแอพได้ที่นี่
+            console.log('PWA สามารถติดตั้งได้');
+        });
     </script>
 </body>
 </html>
