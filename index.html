@@ -479,8 +479,8 @@
             }
 
             .quote-content {
-                padding: 20px;
-                margin: 10px;
+                padding: 15px;
+                margin: 5px;
             }
 
             .quote-table {
@@ -488,12 +488,12 @@
             }
 
             .quote-table th, .quote-table td {
-                padding: 8px 4px;
+                padding: 6px 4px;
             }
 
             .btn-close {
-                width: 35px;
-                height: 35px;
+                width: 30px;
+                height: 30px;
                 font-size: 1.2em;
             }
         }
@@ -526,7 +526,7 @@
             }
 
             .quote-header h2 {
-                font-size: 1.5em;
+                font-size: 1.4em;
             }
         }
 
@@ -547,31 +547,76 @@
                 width: 100%;
                 max-width: 100%;
                 margin: 0;
-                padding: 20px;
+                padding: 5px 10px !important;
                 box-shadow: none;
                 background: white;
+                overflow: visible !important;
             }
             
-            .btn-close, .btn-download {
+            .btn-close, .btn-download, .button-group {
                 display: none !important;
             }
             
             .quote-header {
                 text-align: center;
-                margin-bottom: 20px;
-                border-bottom: 2px solid #667eea;
-                padding-bottom: 15px;
+                margin-bottom: 5px !important;
+                border-bottom: 1px solid #667eea;
+                padding-bottom: 5px !important;
+                page-break-after: avoid;
+            }
+            
+            .quote-header h2 {
+                font-size: 1.3em !important;
+                margin-bottom: 2px !important;
             }
             
             .quote-table {
                 width: 100%;
-                font-size: 12pt;
+                font-size: 9pt !important;
+                margin: 5px 0 !important;
+                page-break-inside: avoid;
             }
             
             .quote-table th {
                 background: #667eea !important;
                 color: white !important;
                 -webkit-print-color-adjust: exact;
+                font-size: 9pt !important;
+            }
+            
+            .quote-table th, .quote-table td {
+                padding: 3px 2px !important;
+                font-size: 9pt !important;
+            }
+            
+            .summary-box {
+                margin-top: 5px !important;
+                padding: 5px !important;
+                font-size: 9pt !important;
+                page-break-inside: avoid;
+            }
+            
+            .warranty-box {
+                font-size: 8pt !important;
+                margin-top: 5px !important;
+                padding: 5px !important;
+                max-height: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .warranty-title {
+                font-size: 9pt !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .warranty-content {
+                font-size: 8pt !important;
+                line-height: 1.3 !important;
+            }
+            
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
             }
         }
 
@@ -584,51 +629,57 @@
             bottom: 0;
             background: rgba(0,0,0,0.8);
             z-index: 1000;
-            padding: 20px;
+            padding: 0;
             overflow-y: auto;
         }
 
         .quote-content {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 5px auto;
             background: white;
-            padding: 40px;
-            border-radius: 15px;
+            padding: 10px 20px;
+            border-radius: 8px;
             position: relative;
+            max-height: 98vh;
+            overflow-y: auto;
         }
 
         .btn-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 8px;
+            right: 8px;
             background: #f44336;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             padding: 0;
-            font-size: 1.5em;
+            font-size: 1.2em;
+            z-index: 1001;
         }
 
         .quote-header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #667eea;
+            padding-bottom: 8px;
+            position: relative;
         }
 
         .quote-header h2 {
             color: #667eea;
-            font-size: 2em;
+            font-size: 1.5em;
+            margin-bottom: 2px;
         }
 
         .quote-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 8px 0;
+            font-size: 0.9em;
         }
 
         .quote-table th, .quote-table td {
-            padding: 12px;
+            padding: 6px 5px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -636,36 +687,97 @@
         .quote-table th {
             background: #667eea;
             color: white;
-        }
-
-        .quote-footer {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #667eea;
+            font-size: 0.9em;
         }
 
         .note {
             background: #fff3cd;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border-left: 4px solid #ffc107;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 2px solid #ffc107;
+            font-size: 0.85em;
         }
 
         .btn-download {
             background: #2196F3;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         
         .btn-print {
             background: #4CAF50;
-            margin-top: 15px;
+            margin-top: 10px;
             margin-right: 10px;
         }
         
         .button-group {
             display: flex;
             gap: 10px;
+            margin-top: 10px;
+        }
+        
+        /* เงื่อนไขประกันแบบกะทัดรัด */
+        .warranty-box {
+            margin-top: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 9pt;
+            line-height: 1.4;
+        }
+        
+        .warranty-title {
+            color: #000;
+            font-size: 10pt;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .warranty-content {
+            font-size: 9pt;
+            line-height: 1.3;
+        }
+        
+        .warranty-content p {
+            margin-bottom: 3px;
+            color: #000;
+        }
+        
+        /* สรุปแบบกะทัดรัด */
+        .summary-box {
+            background: #f0f8ff;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 8px;
+            border: 1px solid #d1e7ff;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+            font-size: 0.9em;
+        }
+        
+        .summary-total {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #667eea;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        /* ซ่อนฟิลด์ที่ไม่ต้องการ */
+        .length-field {
+            display: block;
+        }
+        
+        .points-field {
+            display: none;
         }
     </style>
 </head>
@@ -744,25 +856,32 @@
                         <div class="add-row">
                             <div class="form-group">
                                 <label>ประเภทงาน</label>
-                                <select id="wiringType">
+                                <select id="wiringType" onchange="toggleInputFields()">
                                     <option value="">-- เลือกประเภทงาน --</option>
-                                    <option value="ปลั๊ค|250|2.5|กล่องลอย:1,หน้ากาก:1,ปลั๊คกราวด์คู่:1">ติดตั้งปลั๊กไฟ - 250฿/จุด</option>
-                                    <option value="ไฟส่องสว่าง|300|1.5|กล่องลอย:1,หน้ากาก:1">ไฟส่องสว่าง - 300฿/จุด</option>
-                                    <option value="ดาวน์ไลต์ 6ดวง/จุด|1500|1.5|กล่องลอย:1,หน้ากาก:1">ดาวน์ไลต์ 6ดวง/จุด - 1,500฿/จุด</option>
-                                    <option value="ตู้ MDB|500|0|">ติดตั้งตู้ MDB - 500฿</option>
-                                    <option value="เดินสาย Main ≤ 15 ม.|2500|0|">เดินสาย Main ≤ 15 ม. - 2,500฿</option>
-                                    <option value="เดินสาย Main ส่วนเกินฝังดิน ที่สูง/เมตร|300|0|">เดินสาย Main ส่วนเกินฝังดิน ที่สูง/เมตร - 300฿</option>
-                                    <option value="แอร์|3500|0|">ติดตั้งแอร์ - 3,500฿</option>
-                                    <option value="เครื่องทำน้ำอุ่น|1500|0|">เครื่องทำน้ำอุ่น - 1,500฿</option>
+                                    <option value="ปลั๊ค|250|2.5|กล่องลอย:1,หน้ากาก:1,ปลั๊คกราวด์คู่:1|จุด">ติดตั้งปลั๊กไฟ - 250฿/จุด</option>
+                                    <option value="ไฟส่องสว่าง|300|1.5|กล่องลอย:1,หน้ากาก:1|จุด">ไฟส่องสว่าง - 300฿/จุด</option>
+                                    <option value="ดาวน์ไลต์ 6ดวง/จุด|1500|1.5|กล่องลอย:1,หน้ากาก:1|จุด">ดาวน์ไลต์ 6ดวง/จุด - 1,500฿/จุด</option>
+                                    <option value="ตู้ MDB|900|0||จุด">ติดตั้งตู้ MDB - 900฿</option>
+                                    <option value="เดินสาย Main ≤ 15 ม.|2500|0||จุด">เดินสาย Main ≤ 15 ม. - 2,500฿</option>
+                                    <option value="เดินสาย Main ส่วนเกินฝังดิน ขึ้นที่สูง|300|0||เมตร">เดินสาย Main ส่วนเกินฝังดิน ขึ้นที่สูง - 300฿/เมตร</option>
+                                    <option value="แอร์|3500|0||จุด">ติดตั้งแอร์ - 3,500฿</option>
+                                    <option value="เครื่องทำน้ำอุ่น|1500|0||จุด">เครื่องทำน้ำอุ่น - 1,500฿</option>
+                                    <option value="เดินสาย Main เสา 6.ม/ต้น|1000|0||จุด">เดินสาย Main เสา 6.ม/ต้น - 1,000฿</option>
+                                    <option value="เดินสาย Main เสา 9.ม/ต้น|1500|0||จุด">เดินสาย Main เสา 9.ม/ต้น - 1,500฿</option>
+                                    <option value="เดินสาย Main เสา 12.ม/ต้น|2000|0||จุด">เดินสาย Main เสา 12.ม/ต้น - 2,000฿</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group points-field" id="pointsField">
                                 <label>จำนวน (จุด)</label>
-                                <input type="number" id="wiringQty" placeholder="จำนวน" min="1">
+                                <input type="number" id="wiringPoints" placeholder="จำนวนจุด" min="1">
+                            </div>
+                            <div class="form-group length-field" id="lengthField" style="display: none;">
+                                <label>ความยาว (เมตร)</label>
+                                <input type="number" id="wiringLength" placeholder="ความยาวเมตร" min="0.1" step="0.1">
                             </div>
                             <div class="form-group">
-                                <label>ความยาว (ม.)</label>
-                                <input type="number" id="wiringLength" placeholder="ความยาว" min="0">
+                                <label>ความยาวสาย (ม.)</label>
+                                <input type="number" id="wireLength" placeholder="ความยาวสาย" min="0">
                             </div>
                             <button onclick="addWiringItem()">เพิ่ม</button>
                         </div>
@@ -801,7 +920,7 @@
                         <div id="wiringSummaryList" class="item-list"></div>
                         
                         <div class="total-section" style="background: #FF9800;">
-                            <h3>ค่าแรงเป็นจุด</h3>
+                            <h3>ค่าแรงรวม</h3>
                             <div class="amount" id="laborOnlyTotal">0 ฿</div>
                         </div>
 
@@ -841,6 +960,37 @@
             
             event.target.classList.add('active');
             document.getElementById(tab).classList.add('active');
+        }
+
+        function toggleInputFields() {
+            const select = document.getElementById('wiringType');
+            const pointsField = document.getElementById('pointsField');
+            const lengthField = document.getElementById('lengthField');
+            const wireLengthInput = document.getElementById('wireLength');
+            
+            if (!select.value) {
+                pointsField.style.display = 'block';
+                lengthField.style.display = 'none';
+                wireLengthInput.value = '';
+                return;
+            }
+            
+            const parts = select.value.split('|');
+            const unit = parts[4] || 'จุด';
+            
+            if (unit === 'เมตร') {
+                pointsField.style.display = 'none';
+                lengthField.style.display = 'block';
+                document.getElementById('wiringLength').value = '';
+                wireLengthInput.value = '';
+                wireLengthInput.readOnly = true;
+            } else {
+                pointsField.style.display = 'block';
+                lengthField.style.display = 'none';
+                document.getElementById('wiringPoints').value = '';
+                wireLengthInput.value = '';
+                wireLengthInput.readOnly = false;
+            }
         }
 
         function addCabinetItem() {
@@ -923,14 +1073,9 @@
 
             const html = `
                 <div class="quote-header">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
-                        <img src="icon.png" alt="ไอคอนเพื่อนช่าง" style="width: 60px; height: 60px; border-radius: 10px;">
-                        <div>
-                            <h2>ใบเสนอราคา - ประกอบตู้</h2>
-                            <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
-                        </div>
-                    </div>
-                    <p style="color: #FF9800; font-weight: bold;">ค่าแรง: ${percent}%</p>
+                    <h2>ใบเสนอราคา - ประกอบตู้</h2>
+                    <p style="font-size: 0.85em;">วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
+                    <p style="color: #FF9800; font-weight: bold; font-size: 0.85em;">ค่าแรง: ${percent}%</p>
                 </div>
                 <table class="quote-table">
                     <thead>
@@ -952,13 +1097,28 @@
                         `).join('')}
                     </tbody>
                 </table>
-                <div class="quote-footer">
-                    <p><strong>ราคาอุปกรณ์:</strong> ${subtotal.toLocaleString()}฿</p>
-                    <p><strong>ค่าแรง ${percent}%:</strong> ${labor.toLocaleString()}฿</p>
-                    <h3 style="color: #667eea; font-size: 1.8em;">รวมทั้งสิ้น: ${total.toLocaleString()}฿</h3>
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span><strong>ราคาอุปกรณ์:</strong></span>
+                        <span>${subtotal.toLocaleString()}฿</span>
+                    </div>
+                    <div class="summary-row">
+                        <span><strong>ค่าแรง ${percent}%:</strong></span>
+                        <span>${labor.toLocaleString()}฿</span>
+                    </div>
+                    <div class="summary-total" style="text-align: center;">
+                        รวมทั้งสิ้น: ${total.toLocaleString()}฿
+                    </div>
                 </div>
-                <div class="note">
-                    <strong>หมายเหตุ:</strong> ราคาอุปกรณ์อ้างอิงจากไทยวัสดุ
+                <div class="warranty-box">
+                    <div class="warranty-title">เงื่อนไขการรับประกันงานติดตั้ง</div>
+                    <div class="warranty-content">
+                        <p>1. รับประกันงานติดตั้ง 1 เดือน (ค่าแรงแก้ไขจากงานติดตั้งเท่านั้น)</p>
+                        <p>2. <strong>ไม่รวม</strong>: อุปกรณ์ใหม่, ไฟกระชาก/ฟ้าผ่า, การดัดแปลงโดยผู้อื่น, การใช้งานผิดวิธี</p>
+                        <p style="margin-top: 5px; font-style: italic; color: #666; font-size: 0.9em;">
+                            หมายเหตุ: ราคาอุปกรณ์อ้างอิงราคาจากไทยวัสดุ
+                        </p>
+                    </div>
                 </div>
             `;
 
@@ -971,18 +1131,17 @@
         }
 
         function printQuote() {
-            // ใช้ฟังก์ชันพิมพ์ของเบราว์เซอร์
             window.print();
         }
 
         function showPrintGuide() {
             const guideHTML = `
-                <div style="padding: 20px;">
-                    <h2 style="color: #667eea; text-align: center;">📋 วิธีบันทึกใบเสนอราคาเป็น PDF</h2>
+                <div style="padding: 15px;">
+                    <h2 style="color: #667eea; text-align: center; font-size: 1.2em;">📋 วิธีบันทึกใบเสนอราคาเป็น PDF</h2>
                     
-                    <div style="background: #f0f8ff; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3>วิธีที่ 1: พิมพ์เป็น PDF (แนะนำ)</h3>
-                        <ol style="margin-left: 20px;">
+                    <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <h3 style="font-size: 1em;">วิธีที่ 1: พิมพ์เป็น PDF (แนะนำ)</h3>
+                        <ol style="margin-left: 20px; font-size: 0.9em;">
                             <li>กดปุ่ม <strong>"🖨️ พิมพ์/บันทึก PDF"</strong></li>
                             <li>หรือกด <strong>Ctrl + P</strong> (Windows) / <strong>Cmd + P</strong> (Mac)</li>
                             <li>เลือกเครื่องพิมพ์เป็น <strong>"Save as PDF"</strong> หรือ <strong>"Microsoft Print to PDF"</strong></li>
@@ -992,9 +1151,9 @@
                         </ol>
                     </div>
                     
-                    <div style="background: #fff0f0; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3>วิธีที่ 2: Screenshot (สำหรับมือถือ)</h3>
-                        <ol style="margin-left: 20px;">
+                    <div style="background: #fff0f0; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <h3 style="font-size: 1em;">วิธีที่ 2: Screenshot (สำหรับมือถือ)</h3>
+                        <ol style="margin-left: 20px; font-size: 0.9em;">
                             <li>ขยายหน้าให้เต็มหน้าจอ</li>
                             <li>กดปุ่ม Screenshot ของมือถือ</li>
                             <li>ตัดส่วนใบเสนอราคา</li>
@@ -1002,22 +1161,11 @@
                         </ol>
                     </div>
                     
-                    <div style="background: #f0fff0; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3>วิธีที่ 3: คัดลอกข้อมูล</h3>
-                        <ol style="margin-left: 20px;">
-                            <li>เลือกตารางทั้งหมด (ลากเมาส์คลุม)</li>
-                            <li>กด Ctrl + C (คัดลอก)</li>
-                            <li>เปิดโปรแกรม Excel หรือ Google Sheets</li>
-                            <li>กด Ctrl + V (วาง)</li>
-                            <li>บันทึกเป็นไฟล์ Excel</li>
-                        </ol>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 30px;">
-                        <button onclick="printQuote()" style="background: #2196F3; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1em; cursor: pointer; margin: 10px;">
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button onclick="printQuote()" style="background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 6px; font-size: 1em; cursor: pointer; margin: 8px;">
                             🖨️ พิมพ์ตอนนี้
                         </button>
-                        <button onclick="closeQuote()" style="background: #f44336; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1em; cursor: pointer; margin: 10px;">
+                        <button onclick="closeQuote()" style="background: #f44336; color: white; border: none; padding: 12px 25px; border-radius: 6px; font-size: 1em; cursor: pointer; margin: 8px;">
                             ปิด
                         </button>
                     </div>
@@ -1028,32 +1176,12 @@
             document.getElementById('quoteModal').style.display = 'block';
         }
 
-        function addWiringRow() {
-            appData.wiringRows.push({
-                id: Date.now(),
-                type: '',
-                qty: '',
-                length: ''
-            });
-            updateWiringInputs();
-        }
-
-        function addAccessoryRow() {
-            appData.accessoryRows.push({
-                id: Date.now(),
-                type: '',
-                qty: ''
-            });
-            updateAccessoryInputs();
-        }
-
         function addWiringItem() {
             const select = document.getElementById('wiringType');
-            const qty = parseInt(document.getElementById('wiringQty').value);
-            const length = parseFloat(document.getElementById('wiringLength').value) || 0;
+            const wireLength = parseFloat(document.getElementById('wireLength').value) || 0;
             
-            if (!select.value || !qty || qty < 1) {
-                alert('กรุณาเลือกประเภทงานและระบุจำนวน');
+            if (!select.value) {
+                alert('กรุณาเลือกประเภทงาน');
                 return;
             }
 
@@ -1062,22 +1190,47 @@
             const price = parseInt(parts[1]);
             const wireSize = parts[2];
             const autoMaterials = parts[3] || '';
+            const unit = parts[4] || 'จุด';
+            
+            let qty = 0;
+            let actualLength = 0;
+            
+            if (unit === 'เมตร') {
+                // สำหรับสายส่วนเกิน ใช้เมตร
+                qty = parseFloat(document.getElementById('wiringLength').value) || 0;
+                actualLength = qty; // ความยาวสาย = จำนวนเมตร
+            } else {
+                // สำหรับงานอื่นๆ ใช้จุด
+                qty = parseInt(document.getElementById('wiringPoints').value) || 0;
+                actualLength = wireLength; // ความยาวสายแยกต่างหาก
+            }
+            
+            if (qty <= 0) {
+                alert('กรุณาระบุจำนวนให้ถูกต้อง');
+                return;
+            }
 
             appData.wiringRows.push({
                 id: Date.now(),
                 type: select.value,
                 typeName: typeName,
                 qty: qty,
-                length: length,
+                length: actualLength,
                 price: price,
                 wireSize: wireSize,
-                autoMaterials: autoMaterials
+                autoMaterials: autoMaterials,
+                unit: unit
             });
 
             calculateWiringSummary();
             select.value = '';
-            document.getElementById('wiringQty').value = '';
+            document.getElementById('wiringPoints').value = '';
             document.getElementById('wiringLength').value = '';
+            document.getElementById('wireLength').value = '';
+            
+            // รีเซ็ตฟิลด์กลับไปเป็นค่าเริ่มต้น
+            document.getElementById('pointsField').style.display = 'block';
+            document.getElementById('lengthField').style.display = 'none';
         }
 
         function addAccessoryItem() {
@@ -1108,17 +1261,24 @@
             const item = appData.wiringRows.find(i => i.id === id);
             if (!item) return;
 
-            const newQty = prompt('ระบุจำนวนใหม่ (จุด):', item.qty);
-            if (newQty && parseInt(newQty) > 0) {
-                item.qty = parseInt(newQty);
-                
-                if (item.wireSize !== '0') {
-                    const newLength = prompt('ระบุความยาวใหม่ (เมตร):', item.length);
+            let newQty;
+            if (item.unit === 'เมตร') {
+                newQty = prompt(`ระบุความยาวใหม่ (เมตร):`, item.qty);
+            } else {
+                newQty = prompt('ระบุจำนวนใหม่ (จุด):', item.qty);
+            }
+            
+            if (newQty && (item.unit === 'เมตร' ? parseFloat(newQty) > 0 : parseInt(newQty) > 0)) {
+                if (item.unit === 'เมตร') {
+                    item.qty = parseFloat(newQty);
+                    item.length = item.qty; // สำหรับสายส่วนเกิน ความยาว = จำนวนเมตร
+                } else {
+                    item.qty = parseInt(newQty);
+                    const newLength = prompt('ระบุความยาวสายใหม่ (เมตร):', item.length);
                     if (newLength !== null) {
                         item.length = parseFloat(newLength) || 0;
                     }
                 }
-                
                 calculateWiringSummary();
             }
         }
@@ -1164,9 +1324,14 @@
                 const laborCost = row.price * row.qty;
                 laborTotal += laborCost;
                 
-                let itemText = `${row.typeName}: ${row.qty} จุด`;
-                if (row.length > 0 && row.wireSize !== '0') {
-                    itemText += ` (ความยาว ${row.length}ม.)`;
+                let itemText = `${row.typeName}: `;
+                if (row.unit === 'เมตร') {
+                    itemText += `${row.qty.toFixed(1)} เมตร`;
+                } else {
+                    itemText += `${row.qty} จุด`;
+                    if (row.length > 0 && row.wireSize !== '0') {
+                        itemText += ` (สายยาว ${row.length}ม.)`;
+                    }
                 }
 
                 displayItems.push({
@@ -1175,7 +1340,8 @@
                     price: row.price,
                     qty: row.qty,
                     total: laborCost,
-                    type: 'wiring'
+                    type: 'wiring',
+                    unit: row.unit
                 });
 
                 if (row.wireSize !== '0' && row.length > 0) {
@@ -1262,18 +1428,37 @@
 
             const calc = appData.wiringCalculation;
             
-            let totalPoints = 0;
-            appData.wiringRows.forEach(row => {
-                totalPoints += row.qty;
-            });
-
+            // ตรวจสอบเงื่อนไขส่วนลด
+            let discount = 0;
+            let discountReason = '';
+            
+            const hasMDB = appData.wiringRows.some(row => row.typeName.includes('ตู้ MDB'));
+            const hasMainWiring = appData.wiringRows.some(row => row.typeName.includes('เดินสาย Main ≤ 15 ม.'));
+            const hasExtraMain = appData.wiringRows.some(row => row.typeName.includes('เดินสาย Main ส่วนเกิน'));
+            
+            if (hasMDB && hasMainWiring) {
+                if (hasExtraMain) {
+                    discount = 200;
+                    discountReason = 'ส่วนลดพิเศษ (ตู้ MDB + เดินสายเมน + สายเมนส่วนเกิน)';
+                } else {
+                    discount = 100;
+                    discountReason = 'ส่วนลด (ตู้ MDB + เดินสายเมน)';
+                }
+            }
+            
+            // คำนวณราคาหลังหักส่วนลด
+            const grandTotalAfterDiscount = Math.max(0, calc.grandTotal - discount);
+            
             let allItems = [];
 
             appData.wiringRows.forEach(row => {
+                const unit = row.unit === 'เมตร' ? 'เมตร' : 'จุด';
+                const qtyDisplay = row.unit === 'เมตร' ? row.qty.toFixed(1) : row.qty;
+                
                 allItems.push({
                     name: row.typeName,
-                    qty: row.qty,
-                    unit: 'จุด',
+                    qty: qtyDisplay,
+                    unit: unit,
                     price: row.price,
                     total: row.price * row.qty
                 });
@@ -1291,16 +1476,22 @@
                     total: data.qty * data.price
                 });
             });
+            
+            // เพิ่มรายการส่วนลดถ้ามี
+            if (discount > 0) {
+                allItems.push({
+                    name: discountReason,
+                    qty: 1,
+                    unit: '',
+                    price: -discount,
+                    total: -discount
+                });
+            }
 
             const html = `
                 <div class="quote-header">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
-                        <img src="icon.png" alt="ไอคอนเพื่อนช่าง" style="width: 60px; height: 60px; border-radius: 10px;">
-                        <div>
-                            <h2>ใบเสนอราคา - เดินไฟภายใน</h2>
-                            <p>วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
-                        </div>
-                    </div>
+                    <h2>ใบเสนอราคา - เดินไฟภายใน</h2>
+                    <p style="font-size: 0.85em;">วันที่: ${new Date().toLocaleDateString('th-TH')}</p>
                 </div>
                 <table class="quote-table">
                     <thead>
@@ -1314,24 +1505,46 @@
                     <tbody>
                         ${allItems.map(item => `
                             <tr>
-                                <td>${item.name}</td>
+                                <td style="max-width: 180px; word-wrap: break-word;">${item.name}</td>
                                 <td>${item.qty}${item.unit ? ' ' + item.unit : ''}</td>
-                                <td>${item.price.toLocaleString()}฿</td>
-                                <td>${item.total.toLocaleString()}฿</td>
+                                <td>${item.price >= 0 ? item.price.toLocaleString() + '฿' : 'ลด ' + Math.abs(item.price).toLocaleString() + '฿'}</td>
+                                <td>${item.total >= 0 ? item.total.toLocaleString() + '฿' : 'ลด ' + Math.abs(item.total).toLocaleString() + '฿'}</td>
                             </tr>
                         `).join('')}
                     </tbody>
                 </table>
-                <div class="quote-footer">
-                    <div style="background: #FF9800; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                        <h3 style="margin: 0;">💰 ค่าแรง ${totalPoints} จุดติดตั้ง: ${calc.laborTotal.toLocaleString()}฿</h3>
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span><strong>💰 ค่าแรงรวม:</strong></span>
+                        <span>${calc.laborTotal.toLocaleString()}฿</span>
                     </div>
-                    <p><strong>ค่าอุปกรณ์:</strong> ${calc.materialTotal.toLocaleString()}฿</p>
-                    <p><strong>ค่าแรงติดตั้ง:</strong> ${calc.laborTotal.toLocaleString()}฿</p>
-                    <h3 style="color: #667eea; font-size: 1.8em;">รวมค่าแรง + อุปกรณ์: ${calc.grandTotal.toLocaleString()}฿</h3>
+                    <div class="summary-row">
+                        <span><strong>ค่าอุปกรณ์:</strong></span>
+                        <span>${calc.materialTotal.toLocaleString()}฿</span>
+                    </div>
+                    <div class="summary-row">
+                        <span><strong>ค่าแรงติดตั้ง:</strong></span>
+                        <span>${calc.laborTotal.toLocaleString()}฿</span>
+                    </div>
+                    ${discount > 0 ? `
+                    <div class="summary-row">
+                        <span><strong>ส่วนลด:</strong></span>
+                        <span style="color: #4CAF50;">${discount.toLocaleString()}฿</span>
+                    </div>
+                    ` : ''}
+                    <div class="summary-total" style="text-align: center;">
+                        รวมสุทธิ: ${grandTotalAfterDiscount.toLocaleString()}฿
+                    </div>
                 </div>
-                <div class="note">
-                    <strong>หมายเหตุ:</strong> ราคาอุปกรณ์อ้างอิงราคาจากไทยวัสดุ 
+                <div class="warranty-box">
+                    <div class="warranty-title">เงื่อนไขการรับประกันงานติดตั้ง</div>
+                    <div class="warranty-content">
+                        <p>1. รับประกันงานติดตั้ง 1 เดือน (ค่าแรงแก้ไขจากงานติดตั้งเท่านั้น)</p>
+                        <p>2. <strong>ไม่รวม</strong>: อุปกรณ์ใหม่, ไฟกระชาก/ฟ้าผ่า, การดัดแปลงโดยผู้อื่น, การใช้งานผิดวิธี</p>
+                        <p style="margin-top: 5px; font-style: italic; color: #666; font-size: 0.9em;">
+                            หมายเหตุ: ราคาอุปกรณ์อ้างอิงราคาจากไทยวัสดุ
+                        </p>
+                    </div>
                 </div>
             `;
 
@@ -1356,6 +1569,9 @@
             // สามารถแสดงปุ่มติดตั้งแอพได้ที่นี่
             console.log('PWA สามารถติดตั้งได้');
         });
+        
+        // เรียกใช้ฟังก์ชันเพื่อตั้งค่าเริ่มต้น
+        toggleInputFields();
     </script>
 </body>
 </html>
