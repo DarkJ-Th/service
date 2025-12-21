@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>เพื่อนช่าง</title>
-    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <title>เพื่อนช่าง - ระบบครบวงจร</title>
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f527.svg" type="image/x-icon">
     <style>
-        /* CSS เดิมเหมือนเดิม */
+        /* CSS รีเซ็ตและพื้นฐาน */
         * { 
             margin: 0; 
             padding: 0; 
@@ -16,6 +16,7 @@
         
         html {
             font-size: 16px;
+            scroll-behavior: smooth;
         }
         
         body {
@@ -28,6 +29,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
+        /* Container หลัก */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -37,6 +39,7 @@
             overflow: hidden;
         }
         
+        /* Header */
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -55,29 +58,33 @@
             border-radius: 12px;
             object-fit: contain;
             background: white;
-            padding: 4px;
+            padding: 8px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
         
         .header h1 { 
-            font-size: 1.6rem; 
+            font-size: 1.8rem; 
             margin-bottom: 5px;
             line-height: 1.2;
         }
         
         .header p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             opacity: 0.9;
         }
         
+        /* Tabs */
         .tabs {
             display: flex;
             background: #f5f5f5;
             border-bottom: 2px solid #ddd;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .tab {
             flex: 1;
+            min-width: 120px;
             padding: 15px 10px;
             text-align: center;
             cursor: pointer;
@@ -101,6 +108,7 @@
             border-bottom: 3px solid #667eea;
         }
         
+        /* Tab Content */
         .tab-content { 
             display: none; 
             padding: 20px 15px;
@@ -116,26 +124,28 @@
             to { opacity: 1; }
         }
         
+        /* Layout Grid */
         .section-container {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
         }
         
-        .input-section, .summary-section {
+        .input-section, .summary-section, .calculator-section {
             background: #f9f9f9;
             padding: 20px 15px;
             border-radius: 12px;
             border: 1px solid #e0e0e0;
         }
         
-        .input-section h3, .summary-section h3 {
+        .section-title {
             color: #667eea;
             margin-bottom: 15px;
             font-size: 1.3rem;
             font-weight: 600;
         }
         
+        /* Form Elements */
         .form-group { 
             margin-bottom: 20px; 
             width: 100%;
@@ -177,13 +187,145 @@
             background: #fff;
         }
         
-        .form-vertical {
+        /* Power Input Group */
+        .power-input-group {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
+            gap: 10px;
+            margin-top: 10px;
         }
         
+        .power-value-input {
+            flex: 2;
+        }
+        
+        .power-unit-select {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        /* Radio Groups */
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 10px 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s;
+            user-select: none;
+        }
+        
+        .radio-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .radio-option.checked {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .radio-option.checked span {
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        /* Wire Type Selection */
+        .wire-type-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .wire-type-btn {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .wire-type-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .wire-type-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .wire-type-icon {
+            font-size: 1.2rem;
+        }
+        
+        .wire-type-name {
+            font-size: 0.9rem;
+        }
+        
+        .wire-type-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* Phase Selection */
+        .phase-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .phase-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .phase-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .phase-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Buttons */
         button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -203,6 +345,16 @@
             margin-top: 5px;
         }
         
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Item Lists */
         .item-list { 
             margin-top: 15px;
             max-height: 500px;
@@ -273,6 +425,7 @@
             border: none;
         }
         
+        /* Total Sections */
         .total-section {
             background: #667eea;
             color: white;
@@ -302,7 +455,124 @@
             font-weight: 600;
         }
         
-        /* Modal ที่แก้ไขแล้ว */
+        /* ผลลัพธ์เครื่องคำนวณสายไฟ */
+        .wire-result {
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .wire-result.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .result-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .result-value {
+            color: #333;
+            font-size: 1.2rem;
+        }
+        
+        .wire-display {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .wire {
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .wire-brown { background-color: #8B4513; }
+        .wire-blue { background-color: #4169E1; }
+        .wire-black { background-color: #000000; }
+        .wire-gray { background-color: #808080; }
+        .wire-green { background-color: #228B22; }
+        .wire-white { background-color: #FFFFFF; color: #333; border: 1px solid #ddd; }
+        .wire-red { background-color: #FF0000; }
+        .wire-yellow { background-color: #FFD700; color: #333; }
+        
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            color: #856404;
+        }
+        
+        .heat-calc {
+            background: #e8f5e9;
+            border: 2px solid #4CAF50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            color: #2e7d32;
+        }
+        
+        .pipe-display {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .pipe {
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+        }
+        
+        .wire-count-info {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal ใบเสนอราคา */
         .quote-modal {
             display: none;
             position: fixed;
@@ -414,13 +684,6 @@
             white-space: nowrap;
         }
         
-        .quote-table td:nth-child(2),
-        .quote-table td:nth-child(3),
-        .quote-table td:nth-child(4) {
-            text-align: right;
-            white-space: nowrap;
-        }
-        
         .summary-box {
             margin: 25px 0;
             padding: 20px;
@@ -468,10 +731,15 @@
             color: #666;
         }
         
+        /* Responsive */
         @media (min-width: 768px) {
             .section-container {
                 grid-template-columns: 1fr 1fr;
                 gap: 25px;
+            }
+            
+            .calculator-section {
+                grid-column: span 2;
             }
             
             .quote-body {
@@ -481,19 +749,51 @@
             .quote-table {
                 font-size: 1rem;
             }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .radio-group {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+            
+            .phase-group {
+                flex-direction: row;
+            }
+            
+            .power-unit-select {
+                min-width: 140px;
+            }
+            
+            .wire-type-group {
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .section-container {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            
+            .calculator-section {
+                grid-column: span 3;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header">
-            <img src="icon.png" alt="ไอคอนเพื่อนช่าง" class="logo">
+            <img src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f527.svg" alt="ไอคอนเพื่อนช่าง" class="logo">
             <div>
-                <h1>⚡ เพื่อนช่าง ⚡</h1>
-                <p>ระบบคำนวณราคาอุปกรณ์ไฟฟ้า</p>
+                <h1>⚡ เพื่อนช่าง - ระบบครบวงจร ⚡</h1>
+                <p>คำนวณราคาอุปกรณ์ไฟฟ้า + เครื่องคำนวณขนาดสายไฟ</p>
             </div>
         </div>
 
+        <!-- Tabs Navigation -->
         <div class="tabs">
             <button class="tab active" onclick="switchTab('cabinet')">
                 <span>📦</span>
@@ -503,12 +803,17 @@
                 <span>🔌</span>
                 <span>เดินไฟภายใน</span>
             </button>
+            <button class="tab" onclick="switchTab('wire-calc')">
+                <span>📏</span>
+                <span>คำนวณขนาดสายไฟ</span>
+            </button>
         </div>
 
+        <!-- ==================== TAB 1: ประกอบตู้ ==================== -->
         <div id="cabinet" class="tab-content active">
             <div class="section-container">
                 <div class="input-section">
-                    <h3>เลือกอุปกรณ์</h3>
+                    <h3 class="section-title">เลือกอุปกรณ์</h3>
                     <div class="form-vertical">
                         <div class="form-group">
                             <label>ชื่ออุปกรณ์</label>
@@ -530,7 +835,7 @@
                 </div>
 
                 <div class="summary-section">
-                    <h3>สรุปรายการ</h3>
+                    <h3 class="section-title">สรุปรายการ</h3>
                     <div id="cabinetList" class="item-list"></div>
                     
                     <div class="total-section">
@@ -546,10 +851,11 @@
             </div>
         </div>
 
+        <!-- ==================== TAB 2: เดินไฟภายใน ==================== -->
         <div id="wiring" class="tab-content">
             <div class="section-container">
                 <div class="input-section">
-                    <h3>เลือกประเภทงาน</h3>
+                    <h3 class="section-title">เลือกประเภทงาน</h3>
                     <div class="form-vertical">
                         <div class="form-group">
                             <label>งานเดินไฟ</label>
@@ -576,7 +882,7 @@
 
                     <div style="height: 1px; background: linear-gradient(to right, transparent, #667eea, transparent); margin: 25px 0;"></div>
 
-                    <h3>อุปกรณ์เสริม</h3>
+                    <h3 class="section-title">อุปกรณ์เสริม</h3>
                     <div class="form-vertical">
                         <div class="form-group">
                             <label>อุปกรณ์</label>
@@ -598,7 +904,7 @@
                 </div>
 
                 <div class="summary-section">
-                    <h3>สรุปรายการ</h3>
+                    <h3 class="section-title">สรุปรายการ</h3>
                     <div id="wiringList" class="item-list"></div>
                     
                     <div class="total-section" style="background: #FF9800;">
@@ -618,8 +924,101 @@
                 </div>
             </div>
         </div>
+
+        <!-- ==================== TAB 3: คำนวณขนาดสายไฟ ==================== -->
+        <div id="wire-calc" class="tab-content">
+            <div class="calculator-section">
+                <h3 class="section-title">⚡ เครื่องคำนวณขนาดสายไฟ + ความร้อน + ขนาดท่อ</h3>
+                
+                <div class="section-container">
+                    <div class="input-section">
+                        <div class="form-group">
+                            <label>แรงดันไฟฟ้า (V)</label>
+                            <input type="number" id="voltage" value="220" min="1" onchange="updatePhaseSystem()">
+                            <div class="phase-group" id="phaseGroup">
+                                <!-- จะสร้างด้วย JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>กำลังไฟฟ้า</label>
+                            <div class="power-input-group">
+                                <input type="number" id="powerValue" value="1000" min="0" step="0.1" 
+                                       class="power-value-input" placeholder="ระบุกำลังไฟ">
+                                <select id="powerUnit" class="power-unit-select">
+                                    <option value="W">W (วัตต์)</option>
+                                    <option value="A">A (แอมแปร์)</option>
+                                    <option value="HP">HP (แรงม้า)</option>
+                                </select>
+                            </div>
+                            <small style="color: #666; display: block; margin-top: 5px;">
+                                ระบุกำลังไฟฟ้าและเลือกหน่วย
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="input-section">
+                        <div class="form-group">
+                            <label>ความยาวสายไฟ (เมตร)</label>
+                            <input type="number" id="wire-length" value="10" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>ชนิดสายไฟ</label>
+                            <div class="wire-type-group" id="wireTypeGroup">
+                                <!-- จะสร้างด้วย JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>อุณหภูมิแวดล้อม (°C)</label>
+                            <input type="number" id="ambientTemp" value="30" min="0" max="50">
+                            <small style="color: #666; display: block; margin-top: 5px;">อุณหภูมิโดยรอบเฉลี่ย</small>
+                        </div>
+                    </div>
+                    
+                    <div class="input-section">
+                        <div class="form-group">
+                            <label>ระบบไฟฟ้า</label>
+                            <div class="radio-group" id="systemTypeGroup">
+                                <!-- จะสร้างด้วย JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>ประเภทการติดตั้ง</label>
+                            <select id="installationType">
+                                <option value="conduit">ร้อยท่อ (Conduit)</option>
+                                <option value="trunking">ราง/ท่อร้อยสาย (Trunking)</option>
+                                <option value="open">เปิดโล่ง (Open Air)</option>
+                                <option value="buried">ฝังดิน (Buried)</option>
+                            </select>
+                        </div>
+                        
+                        <!-- แสดงจำนวนสายที่คำนวณอัตโนมัติ -->
+                        <div class="wire-count-info">
+                            <strong>จำนวนสายในท่อที่คำนวณ:</strong>
+                            <div id="calculatedWireCount">3 สาย (L, N, G)</div>
+                            <small id="wireCountDescription">ระบบ 1 เฟส 220V: L + N + G</small>
+                        </div>
+                        
+                        <button onclick="calculateWireSize()">
+                            <span>📊</span>
+                            <span>คำนวณขนาดสายไฟ + ท่อ</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- ผลลัพธ์การคำนวณ -->
+                <div class="wire-result" id="wireResult">
+                    <h3 class="section-title">📊 ผลการคำนวณ</h3>
+                    <div id="wireResultContent"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Modal ใบเสนอราคา -->
     <div id="quoteModal" class="quote-modal">
         <div class="quote-content-wrapper">
             <div class="quote-content">
@@ -635,7 +1034,7 @@
 
     <script>
         // ============================================
-        // 1. ข้อมูลหลัก
+        // 1. ข้อมูลหลัก (เพื่อนช่าง)
         // ============================================
         
         const CONFIG = {
@@ -768,17 +1167,203 @@
             }
         };
 
-        const UNIT_TYPES = {
-            meterItems: ['รางเดินสายไฟ', 'ท่อขาว 6หุน'],
-            pieceItems: [
-                'ข้องอ 6หุน', 'บล็อคพักสาย', 'สวิตไฟ', 
-                'หลอดไฟ LED T5 PHILIPS 13W', 'หลอดไฟ LED T5 LAMPTAN 18W',
-                'ไฟดาวไลท์ 5 นิ้ว LAMPTAN 14W', 'ไฟดาวไลท์ 6 นิ้ว LAMPTAN 18W',
-                'ไฟดาวไลท์ 9 นิ้ว HI-TEX 18W', 'ตู้ MDB กันดูด 6ch',
-                'ตู้ MDB 8ch', 'ตู้ MDB 6ch'
-            ]
+        // ============================================
+        // 2. ข้อมูลเครื่องคำนวณสายไฟและความร้อน
+        // ============================================
+        
+        const WIRE_DATA = [
+            { size: 1.5, ampacity: 15, resistance: 12.1, area: 1.77, tempRisePerA: 0.65 },
+            { size: 2.5, ampacity: 21, resistance: 7.41, area: 3.31, tempRisePerA: 0.45 },
+            { size: 4, ampacity: 28, resistance: 4.61, area: 5.26, tempRisePerA: 0.32 },
+            { size: 6, ampacity: 36, resistance: 3.08, area: 7.92, tempRisePerA: 0.25 },
+            { size: 10, ampacity: 50, resistance: 1.83, area: 13.3, tempRisePerA: 0.18 },
+            { size: 16, ampacity: 68, resistance: 1.15, area: 21.1, tempRisePerA: 0.13 },
+            { size: 25, ampacity: 89, resistance: 0.727, area: 32.0, tempRisePerA: 0.09 },
+            { size: 35, ampacity: 110, resistance: 0.524, area: 44.7, tempRisePerA: 0.07 },
+            { size: 50, ampacity: 134, resistance: 0.387, area: 63.6, tempRisePerA: 0.05 },
+            { size: 70, ampacity: 171, resistance: 0.268, area: 88.9, tempRisePerA: 0.04 },
+            { size: 95, ampacity: 207, resistance: 0.193, area: 120.3, tempRisePerA: 0.03 },
+            { size: 120, ampacity: 239, resistance: 0.153, area: 152.1, tempRisePerA: 0.025 },
+            { size: 150, ampacity: 272, resistance: 0.124, area: 190.1, tempRisePerA: 0.02 },
+            { size: 185, ampacity: 310, resistance: 0.0991, area: 234.0, tempRisePerA: 0.018 },
+            { size: 240, ampacity: 364, resistance: 0.0754, area: 304.0, tempRisePerA: 0.015 }
+        ];
+
+        // ข้อมูลชนิดสายไฟ
+        const WIRE_TYPES = {
+            'THW': {
+                name: 'THW (สายเดี่ยวทองแดงหุ้ม PVC)',
+                icon: '🔴',
+                description: 'สายแข็ง เดี่ยว หุ้ม PVC',
+                derating: 1.0,
+                areaFactor: 1.0,
+                maxTemp: 75
+            },
+            'VCT': {
+                name: 'VCT (สายอ่อนหุ้ม PVC)',
+                icon: '🟡',
+                description: 'สายอ่อนหลายเส้น หุ้ม PVC',
+                derating: 0.95,
+                areaFactor: 1.2,
+                maxTemp: 70
+            },
+            'NYA': {
+                name: 'NYA (สายเดี่ยวหุ้มยาง)',
+                icon: '🟠',
+                description: 'สายเดี่ยว หุ้มยาง',
+                derating: 1.0,
+                areaFactor: 1.1,
+                maxTemp: 60
+            },
+            'NYAF': {
+                name: 'NYAF (สายอ่อนหุ้มยาง)',
+                icon: '🟢',
+                description: 'สายอ่อนหลายเส้น หุ้มยาง',
+                derating: 0.95,
+                areaFactor: 1.3,
+                maxTemp: 60
+            },
+            'XLPE': {
+                name: 'XLPE (สายหุ้มโพลีเอทิลีน)',
+                icon: '🔵',
+                description: 'สายแข็ง/อ่อน หุ้ม XLPE',
+                derating: 1.1,
+                areaFactor: 0.9,
+                maxTemp: 90
+            },
+            'RG7': {
+                name: 'RG7 (สายแรงดันสูง)',
+                icon: '🟣',
+                description: 'สายสำหรับแรงดันสูง',
+                derating: 1.15,
+                areaFactor: 0.85,
+                maxTemp: 105
+            }
         };
 
+        const BREAKER_SIZES = [10, 15, 20, 30, 40, 50, 63, 80, 100, 125, 150, 175, 200, 225, 250, 300, 350, 400];
+
+        // ข้อมูลขนาดท่อ (เส้นผ่านศูนย์กลางภายใน - mm)
+        const PIPE_SIZES = [
+            { size: "1/2\"", diameter: 16, area: 201, maxWires1: 4, maxWires2: 2 },
+            { size: "3/4\"", diameter: 21, area: 346, maxWires1: 6, maxWires2: 3 },
+            { size: "1\"", diameter: 27, area: 573, maxWires1: 9, maxWires2: 5 },
+            { size: "1 1/4\"", diameter: 35, area: 962, maxWires1: 15, maxWires2: 7 },
+            { size: "1 1/2\"", diameter: 41, area: 1320, maxWires1: 20, maxWires2: 10 },
+            { size: "2\"", diameter: 52, area: 2124, maxWires1: 30, maxWires2: 15 }
+        ];
+
+        // Derating factors ตามจำนวนสายในท่อ
+        const DERATING_FACTORS = {
+            1: 1.00,
+            2: 0.80,
+            3: 0.70,
+            4: 0.65,
+            5: 0.60,
+            6: 0.57,
+            7: 0.54,
+            8: 0.52,
+            9: 0.50,
+            10: 0.48,
+            11: 0.47,
+            12: 0.46,
+            13: 0.45,
+            14: 0.44,
+            15: 0.43
+        };
+
+        // Derating factors ตามอุณหภูมิแวดล้อม
+        const TEMP_DERATING_FACTORS = {
+            30: 1.00,
+            35: 0.94,
+            40: 0.87,
+            45: 0.79,
+            50: 0.71
+        };
+
+        // Derating factors ตามประเภทการติดตั้ง
+        const INSTALLATION_FACTORS = {
+            'conduit': 1.00,
+            'trunking': 0.85,
+            'open': 1.10,
+            'buried': 0.90
+        };
+
+        // ============================================
+        // 3. ข้อมูลระบบไฟฟ้าและจำนวนสายอัตโนมัติ
+        // ============================================
+        
+        const ELECTRICAL_SYSTEMS = {
+            'ac_single_220': {
+                name: '1 เฟส 220V (บ้านทั่วไป)',
+                voltage: 220,
+                phase: 1,
+                wires: [
+                    { name: 'L (สายไฟ)', color: 'brown', type: 'phase' },
+                    { name: 'N (สายนิวตรอน)', color: 'blue', type: 'neutral' },
+                    { name: 'G (สายกราวด์)', color: 'green', type: 'ground' }
+                ],
+                totalWires: 3,
+                description: 'L + N + G'
+            },
+            'ac_split_220': {
+                name: '1 เฟส 2 สาย 220V (ไม่มีนิวตรอน)',
+                voltage: 220,
+                phase: 1,
+                wires: [
+                    { name: 'L1 (สายไฟ 1)', color: 'brown', type: 'phase' },
+                    { name: 'L2 (สายไฟ 2)', color: 'black', type: 'phase' },
+                    { name: 'G (สายกราวด์)', color: 'green', type: 'ground' }
+                ],
+                totalWires: 3,
+                description: 'L1 + L2 + G'
+            },
+            'ac_three_220': {
+                name: '3 เฟส 220V (Delta)',
+                voltage: 220,
+                phase: 3,
+                wires: [
+                    { name: 'L1 (เฟส 1)', color: 'brown', type: 'phase' },
+                    { name: 'L2 (เฟส 2)', color: 'black', type: 'phase' },
+                    { name: 'L3 (เฟส 3)', color: 'gray', type: 'phase' },
+                    { name: 'G (สายกราวด์)', color: 'green', type: 'ground' }
+                ],
+                totalWires: 4,
+                description: 'L1 + L2 + L3 + G'
+            },
+            'ac_three_380': {
+                name: '3 เฟส 380V (Star/Wye)',
+                voltage: 380,
+                phase: 3,
+                wires: [
+                    { name: 'L1 (เฟส 1)', color: 'brown', type: 'phase' },
+                    { name: 'L2 (เฟส 2)', color: 'black', type: 'phase' },
+                    { name: 'L3 (เฟส 3)', color: 'gray', type: 'phase' },
+                    { name: 'N (นิวตรอน)', color: 'blue', type: 'neutral' },
+                    { name: 'G (สายกราวด์)', color: 'green', type: 'ground' }
+                ],
+                totalWires: 5,
+                description: 'L1 + L2 + L3 + N + G'
+            },
+            'ac_three_380_no_neutral': {
+                name: '3 เฟส 380V (ไม่มีนิวตรอน)',
+                voltage: 380,
+                phase: 3,
+                wires: [
+                    { name: 'L1 (เฟส 1)', color: 'brown', type: 'phase' },
+                    { name: 'L2 (เฟส 2)', color: 'black', type: 'phase' },
+                    { name: 'L3 (เฟส 3)', color: 'gray', type: 'phase' },
+                    { name: 'G (สายกราวด์)', color: 'green', type: 'ground' }
+                ],
+                totalWires: 4,
+                description: 'L1 + L2 + L3 + G'
+            }
+        };
+
+        // ============================================
+        // 4. ตัวแปรและ State
+        // ============================================
+        
         const currentData = {
             cabinet: [],
             wiring: [],
@@ -788,10 +1373,250 @@
         };
 
         // ============================================
-        // 2. ฟังก์ชันพื้นฐาน
+        // 5. ฟังก์ชันพื้นฐาน - แก้ไข Radio Groups
         // ============================================
         
+        function switchTab(tabName) {
+            // ซ่อนแท็บทั้งหมด
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // ลบคลาส active จากแท็บทั้งหมด
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // แสดงแท็บที่เลือก
+            document.getElementById(tabName).classList.add('active');
+            
+            // เพิ่มคลาส active ให้แท็บที่คลิก
+            event.currentTarget.classList.add('active');
+            
+            // ซ่อนผลลัพธ์เครื่องคำนวณเมื่อเปลี่ยนแท็บ
+            if (tabName !== 'wire-calc') {
+                document.getElementById('wireResult').classList.remove('show');
+            }
+        }
+
+        // ฟังก์ชันสร้าง Radio Groups ใหม่
+        function createRadioGroup(groupId, options, defaultValue) {
+            const group = document.getElementById(groupId);
+            group.innerHTML = '';
+            
+            options.forEach(option => {
+                const radioOption = document.createElement('label');
+                radioOption.className = 'radio-option';
+                radioOption.innerHTML = `
+                    <input type="radio" name="${groupId}" value="${option.value}" ${option.value === defaultValue ? 'checked' : ''}>
+                    <span>${option.label}</span>
+                `;
+                
+                // เพิ่ม event listener สำหรับการคลิก
+                const radioInput = radioOption.querySelector('input[type="radio"]');
+                radioInput.addEventListener('change', function() {
+                    // อัปเดตสถานะ checked
+                    updateRadioGroupState(groupId, option.value);
+                    
+                    // อัปเดตจำนวนสายอัตโนมัติ
+                    if (groupId === 'systemTypeGroup') {
+                        updateWireCount();
+                    }
+                });
+                
+                group.appendChild(radioOption);
+            });
+            
+            // อัปเดตสถานะเริ่มต้น
+            updateRadioGroupState(groupId, defaultValue);
+        }
+
+        function updateRadioGroupState(groupId, selectedValue) {
+            const options = document.querySelectorAll(`#${groupId} .radio-option`);
+            options.forEach(option => {
+                const input = option.querySelector('input[type="radio"]');
+                if (input.value === selectedValue) {
+                    option.classList.add('checked');
+                } else {
+                    option.classList.remove('checked');
+                }
+            });
+        }
+
+        // ฟังก์ชันสร้าง Wire Type Buttons
+        function createWireTypeButtons() {
+            const wireTypeGroup = document.getElementById('wireTypeGroup');
+            wireTypeGroup.innerHTML = '';
+            
+            Object.entries(WIRE_TYPES).forEach(([key, wireType]) => {
+                const wireTypeBtn = document.createElement('div');
+                wireTypeBtn.className = 'wire-type-btn';
+                wireTypeBtn.dataset.wireType = key;
+                
+                wireTypeBtn.innerHTML = `
+                    <div class="wire-type-icon">${wireType.icon}</div>
+                    <div class="wire-type-name">${wireType.name}</div>
+                    <div class="wire-type-desc">${wireType.description}</div>
+                `;
+                
+                wireTypeBtn.addEventListener('click', function() {
+                    // ลบคลาส active จากทุกปุ่ม
+                    document.querySelectorAll('.wire-type-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // เพิ่มคลาส active ให้ปุ่มที่คลิก
+                    this.classList.add('active');
+                });
+                
+                wireTypeGroup.appendChild(wireTypeBtn);
+            });
+            
+            // ตั้งค่าเริ่มต้นเป็น THW
+            setTimeout(() => {
+                const firstBtn = document.querySelector('.wire-type-btn');
+                if (firstBtn) firstBtn.classList.add('active');
+            }, 100);
+        }
+
+        // ฟังก์ชันสร้าง Phase Buttons
+        function createPhaseButtons() {
+            const phaseGroup = document.getElementById('phaseGroup');
+            phaseGroup.innerHTML = '';
+            
+            const phases = [
+                { value: '1', label: '1 เฟส' },
+                { value: '3', label: '3 เฟส' }
+            ];
+            
+            phases.forEach(phase => {
+                const phaseBtn = document.createElement('div');
+                phaseBtn.className = 'phase-btn';
+                phaseBtn.textContent = phase.label;
+                phaseBtn.dataset.phase = phase.value;
+                
+                phaseBtn.addEventListener('click', function() {
+                    // ลบคลาส active จากทุกปุ่ม
+                    document.querySelectorAll('.phase-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // เพิ่มคลาส active ให้ปุ่มที่คลิก
+                    this.classList.add('active');
+                    
+                    // อัปเดตระบบไฟฟ้าตามเฟสที่เลือก
+                    updateSystemByPhase(phase.value);
+                });
+                
+                phaseGroup.appendChild(phaseBtn);
+            });
+            
+            // ตั้งค่าเริ่มต้นเป็น 1 เฟส
+            setTimeout(() => {
+                const firstBtn = document.querySelector('.phase-btn');
+                if (firstBtn) firstBtn.classList.add('active');
+                updateSystemByPhase('1');
+            }, 100);
+        }
+
+        // ฟังก์ชันอัปเดตระบบไฟฟ้าตามเฟสที่เลือก
+        function updateSystemByPhase(phase) {
+            const voltage = parseFloat(document.getElementById('voltage').value) || 220;
+            
+            let systemKey;
+            
+            if (phase === '1') {
+                if (voltage === 220) {
+                    systemKey = 'ac_single_220';
+                } else {
+                    systemKey = 'ac_split_220';
+                }
+            } else if (phase === '3') {
+                if (voltage === 220) {
+                    systemKey = 'ac_three_220';
+                } else if (voltage === 380) {
+                    systemKey = 'ac_three_380';
+                } else {
+                    systemKey = 'ac_three_380_no_neutral';
+                }
+            }
+            
+            // อัปเดต radio button ของระบบ
+            if (systemKey) {
+                const systemRadio = document.querySelector(`input[name="systemTypeGroup"][value="${systemKey}"]`);
+                if (systemRadio) {
+                    systemRadio.checked = true;
+                    updateRadioGroupState('systemTypeGroup', systemKey);
+                }
+            }
+            
+            // อัปเดตจำนวนสาย
+            updateWireCount();
+        }
+
+        function initRadioGroups() {
+            // System Type
+            const systemOptions = Object.entries(ELECTRICAL_SYSTEMS).map(([key, system]) => ({
+                value: key,
+                label: system.name
+            }));
+            
+            createRadioGroup('systemTypeGroup', systemOptions, 'ac_single_220');
+            
+            // สร้าง Wire Type Buttons
+            createWireTypeButtons();
+            
+            // สร้าง Phase Buttons
+            createPhaseButtons();
+        }
+
+        function getSelectedRadioValue(groupName) {
+            const selected = document.querySelector(`input[name="${groupName}"]:checked`);
+            return selected ? selected.value : null;
+        }
+
+        function getSelectedWireType() {
+            const selected = document.querySelector('.wire-type-btn.active');
+            return selected ? selected.dataset.wireType : 'THW';
+        }
+
+        // ฟังก์ชันอัปเดตระบบไฟฟ้าตามแรงดันที่เปลี่ยน
+        function updatePhaseSystem() {
+            const activePhaseBtn = document.querySelector('.phase-btn.active');
+            
+            if (activePhaseBtn) {
+                const phase = activePhaseBtn.dataset.phase;
+                updateSystemByPhase(phase);
+            }
+        }
+
+        // ฟังก์ชันอัปเดตจำนวนสายอัตโนมัติ
+        function updateWireCount() {
+            const systemKey = getSelectedRadioValue('systemTypeGroup');
+            if (!systemKey) return;
+            
+            const system = ELECTRICAL_SYSTEMS[systemKey];
+            if (!system) return;
+            
+            // อัปเดตการแสดงผลจำนวนสาย
+            document.getElementById('calculatedWireCount').textContent = 
+                `${system.totalWires} สาย (${system.description})`;
+            document.getElementById('wireCountDescription').textContent = 
+                `${system.name}: ${system.wires.map(w => w.name).join(' + ')}`;
+            
+            // อัปเดตแรงดันใน input
+            document.getElementById('voltage').value = system.voltage;
+            
+            // อัปเดต phase button
+            const phaseBtn = document.querySelector(`.phase-btn[data-phase="${system.phase}"]`);
+            if (phaseBtn) {
+                document.querySelectorAll('.phase-btn').forEach(btn => btn.classList.remove('active'));
+                phaseBtn.classList.add('active');
+            }
+        }
+
         function initDropdowns() {
+            // Cabinet items
             const cabinetSelect = document.getElementById('cabinetItem');
             cabinetSelect.innerHTML = '<option value="">-- เลือกอุปกรณ์ --</option>' +
                 Object.entries(CONFIG.cabinetItems)
@@ -799,6 +1624,7 @@
                         `<option value="${name}|${price}">${name} - ${price.toLocaleString()}฿</option>`
                     ).join('');
             
+            // Wiring items
             const wiringSelect = document.getElementById('wiringType');
             let wiringOptions = '<option value="">-- เลือกประเภทงาน --</option>';
             
@@ -812,54 +1638,23 @@
             
             wiringSelect.innerHTML = wiringOptions;
             
+            // Accessory items
             const accessorySelect = document.getElementById('accessoryItem');
             accessorySelect.innerHTML = '<option value="">-- เลือกอุปกรณ์เสริม --</option>' +
                 Object.entries(CONFIG.accessories)
-                    .map(([name, price]) => 
-                        `<option value="${name}|${price}">${name} - ${price.toLocaleString()}฿/${UNIT_TYPES.meterItems.includes(name) ? 'เมตร' : 'ชิ้น'}</option>`
-                    ).join('');
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
+                    .map(([name, price]) => {
+                        const isMeter = name.includes('ราง') || name.includes('ท่อ');
+                        return `<option value="${name}|${price}">${name} - ${price.toLocaleString()}฿/${isMeter ? 'เมตร' : 'ชิ้น'}</option>`;
+                    }).join('');
             
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function onWiringTypeChange() {
-            const select = document.getElementById('wiringType');
-            const label = document.getElementById('quantityLabel');
-            const wireLengthInput = document.getElementById('wireLength');
-            
-            if (!select.value) return;
-            
-            const [type, name] = select.value.split('|');
-            
-            if (type === 'meter') {
-                label.textContent = 'ความยาว (เมตร)';
-                wireLengthInput.readOnly = true;
-                wireLengthInput.placeholder = 'ระบุความยาวเมตร';
-                wireLengthInput.value = '';
-            } else {
-                label.textContent = 'จำนวน (จุด)';
-                wireLengthInput.readOnly = false;
-                wireLengthInput.placeholder = 'ระบุความยาวสาย (ม.)';
-                
-                const config = CONFIG.wiringByPoint[name];
-                if (config && config.requiresWireLength) {
-                    wireLengthInput.placeholder = 'ระบุความยาวสายกราวด์ (ม.)';
-                }
-            }
+            // อัปเดตจำนวนสายเริ่มต้น
+            setTimeout(() => {
+                updateWireCount();
+            }, 100);
         }
 
         // ============================================
-        // 3. ฟังก์ชันจัดการรายการ
+        // 6. ฟังก์ชันสำหรับแท็บ ประกอบตู้
         // ============================================
         
         function addCabinetItem() {
@@ -962,6 +1757,34 @@
             }
         }
 
+        // ============================================
+        // 7. ฟังก์ชันสำหรับแท็บ เดินไฟภายใน
+        // ============================================
+        
+        function onWiringTypeChange() {
+            const select = document.getElementById('wiringType');
+            const label = document.getElementById('quantityLabel');
+            const wireLengthInput = document.getElementById('wireLength');
+            
+            if (!select.value) return;
+            
+            const [type, name] = select.value.split('|');
+            
+            if (type === 'meter') {
+                label.textContent = 'ความยาว (เมตร)';
+                wireLengthInput.placeholder = 'ระบุความยาวเมตร';
+                wireLengthInput.value = '';
+            } else {
+                label.textContent = 'จำนวน (จุด)';
+                wireLengthInput.placeholder = 'ระบุความยาวสาย (ม.)';
+                
+                const config = CONFIG.wiringByPoint[name];
+                if (config && config.requiresWireLength) {
+                    wireLengthInput.placeholder = 'ระบุความยาวสายกราวด์ (ม.)';
+                }
+            }
+        }
+
         function addWiringItem() {
             const select = document.getElementById('wiringType');
             const quantityInput = document.getElementById('wiringQuantity');
@@ -979,7 +1802,7 @@
             
             if (type === 'meter') {
                 quantity = parseFloat(quantityInput.value) || 0;
-                wireLength = quantity;
+                wireLength = quantity; // สำหรับงานต่อเมตร ความยาว = จำนวน
             } else {
                 quantity = parseFloat(quantityInput.value) || 0;
                 wireLength = parseFloat(wireLengthInput.value) || 0;
@@ -1031,7 +1854,6 @@
 
         function calculateAutoMaterials() {
             currentData.autoMaterials = {};
-            currentData.wireCalculations = [];
             
             currentData.wiring.forEach(item => {
                 if (item.autoMaterials && item.autoMaterials.length > 0) {
@@ -1045,20 +1867,12 @@
                 
                 if (item.wireSize && item.wireLength > 0 && !item.requiresWireLength) {
                     const wireName = `สายไฟ ${item.wireSize}`;
-                    const totalLength = item.wireLength * 2;
+                    const totalLength = item.wireLength * 2; // สายไปและกลับ
                     
                     if (!currentData.autoMaterials[wireName]) {
                         currentData.autoMaterials[wireName] = 0;
                     }
                     currentData.autoMaterials[wireName] += totalLength;
-                    
-                    currentData.wireCalculations.push({
-                        name: item.name,
-                        wireSize: item.wireSize,
-                        wireLength: item.wireLength,
-                        totalLength: totalLength,
-                        calculation: `${item.wireLength}ม. × 2 = ${totalLength}ม.`
-                    });
                 }
                 
                 if (item.groundWire && item.wireLength > 0 && !item.requiresWireLength) {
@@ -1075,14 +1889,6 @@
                         currentData.autoMaterials[groundWireName] = 0;
                     }
                     currentData.autoMaterials[groundWireName] += item.wireLength;
-                    
-                    currentData.wireCalculations.push({
-                        name: item.name,
-                        wireSize: item.groundWire,
-                        wireLength: item.wireLength,
-                        totalLength: item.wireLength,
-                        calculation: `สายกราวด์ ${item.wireLength}ม.`
-                    });
                 }
             });
         }
@@ -1106,7 +1912,7 @@
             const [name, price] = select.value.split('|');
             
             let unit = 'ชิ้น';
-            if (UNIT_TYPES.meterItems.includes(name)) {
+            if (name.includes('ราง') || name.includes('ท่อ')) {
                 unit = 'เมตร';
             }
             
@@ -1229,7 +2035,309 @@
         }
 
         // ============================================
-        // 4. การสร้างใบเสนอราคาที่แก้ไขแล้ว
+        // 8. ฟังก์ชันสำหรับแท็บ เครื่องคำนวณสายไฟ
+        // ============================================
+        
+        function calculateWireSize() {
+            const voltage = parseFloat(document.getElementById('voltage').value);
+            const powerValue = parseFloat(document.getElementById('powerValue').value);
+            const powerUnit = document.getElementById('powerUnit').value;
+            const length = parseFloat(document.getElementById('wire-length').value);
+            const ambientTemp = parseFloat(document.getElementById('ambientTemp').value);
+            const installationType = document.getElementById('installationType').value;
+            
+            const wireTypeKey = getSelectedWireType();
+            const systemKey = getSelectedRadioValue('systemTypeGroup');
+
+            if (!voltage || voltage <= 0) {
+                alert('กรุณาระบุแรงดันไฟฟ้าที่ถูกต้อง');
+                return;
+            }
+            
+            if (!powerValue || powerValue <= 0) {
+                alert('กรุณาระบุกำลังไฟฟ้าที่ถูกต้อง');
+                return;
+            }
+            
+            if (!length || length <= 0) {
+                alert('กรุณาระบุความยาวสายไฟที่ถูกต้อง');
+                return;
+            }
+
+            // จำนวนสายในท่อ (คำนวณอัตโนมัติจากระบบไฟฟ้า)
+            let wireCount = 3; // ค่าเริ่มต้น
+            if (systemKey && ELECTRICAL_SYSTEMS[systemKey]) {
+                wireCount = ELECTRICAL_SYSTEMS[systemKey].totalWires;
+            }
+
+            let current;
+            
+            // แปลงหน่วยกำลังไฟฟ้าเป็นกระแส (A)
+            if (powerUnit === 'A') {
+                // ถ้าใส่เป็นแอมแปร์อยู่แล้ว
+                current = powerValue;
+            } else if (powerUnit === 'HP') {
+                // แปลงจากแรงม้าเป็นวัตต์ (1 HP = 746 W)
+                const watts = powerValue * 746;
+                
+                // AC: คำนวณตามเฟส
+                const system = ELECTRICAL_SYSTEMS[systemKey];
+                if (system && system.phase === 3) {
+                    // 3 เฟส: I = P / (√3 × V × pf)
+                    // pf (power factor) = 0.8
+                    current = watts / (Math.sqrt(3) * voltage * 0.8);
+                } else {
+                    // 1 เฟส: I = P / (V × pf)
+                    current = watts / (voltage * 0.8);
+                }
+            } else { // powerUnit === 'W'
+                // ถ้าใส่เป็นวัตต์
+                const system = ELECTRICAL_SYSTEMS[systemKey];
+                if (system && system.phase === 3) {
+                    // 3 เฟส 380V: I = P / (√3 × V × pf)
+                    // pf (power factor) = 0.8
+                    current = powerValue / (Math.sqrt(3) * voltage * 0.8);
+                } else {
+                    // 1 เฟส: I = P / (V × pf)
+                    current = powerValue / (voltage * 0.8);
+                }
+            }
+
+            // คำนวณ derating factors
+            const tempFactor = TEMP_DERATING_FACTORS[ambientTemp] || 1.00;
+            const wireCountFactor = DERATING_FACTORS[wireCount] || 0.52;
+            const installationFactor = INSTALLATION_FACTORS[installationType] || 1.00;
+            const wireTypeInfo = WIRE_TYPES[wireTypeKey] || WIRE_TYPES.THW;
+            const wireTypeFactor = wireTypeInfo.derating || 1.0;
+            
+            const totalDerating = tempFactor * wireCountFactor * installationFactor * wireTypeFactor;
+            
+            const safetyFactor = 1.25;
+            const requiredCurrent = current * safetyFactor;
+            const deratedCurrent = requiredCurrent / totalDerating;
+
+            // ค้นหาสายไฟที่เหมาะสม
+            let selectedWire = WIRE_DATA.find(w => w.ampacity >= deratedCurrent);
+            if (!selectedWire) {
+                selectedWire = WIRE_DATA[WIRE_DATA.length - 1];
+            }
+
+            // คำนวณแรงดันตก (ใช้ความยาวสายและความต้านทาน)
+            const voltageDrop = (2 * current * length * selectedWire.resistance) / 1000;
+            const voltageDropPercent = (voltageDrop / voltage) * 100;
+
+            // คำนวณความร้อนที่เกิดขึ้น
+            const powerLoss = Math.pow(current, 2) * selectedWire.resistance * length / 1000; // วัตต์
+            const tempRise = powerLoss * selectedWire.tempRisePerA; // อุณหภูมิที่เพิ่มขึ้น
+            const wireTemp = ambientTemp + tempRise; // อุณหภูมิรวมของสายไฟ
+
+            // คำนวณเบรกเกอร์
+            const breaker = BREAKER_SIZES.find(b => b >= current) || BREAKER_SIZES[BREAKER_SIZES.length - 1];
+
+            // คำนวณขนาดท่อ (ปรับตามชนิดสาย)
+            const pipeSize = calculatePipeSize(selectedWire.size, wireCount, wireTypeInfo);
+
+            // แสดงผลการคำนวณ
+            displayWireResults(voltage, current, selectedWire, breaker, voltageDrop, voltageDropPercent, 
+                             wireTypeInfo, tempRise, wireTemp, powerLoss, pipeSize,
+                             totalDerating, wireCount, ambientTemp, installationType, systemKey,
+                             powerValue, powerUnit);
+        }
+
+        function calculatePipeSize(wireSize, wireCount, wireTypeInfo) {
+            // คำนวณพื้นที่หน้าตัดรวมของสายไฟ
+            const wireData = WIRE_DATA.find(w => w.size === wireSize);
+            if (!wireData) return PIPE_SIZES[0];
+            
+            // ปรับขนาดตามชนิดสาย (มีปัจจัยพื้นที่)
+            const areaFactor = wireTypeInfo.areaFactor || 1.0;
+            const totalWireArea = wireData.area * wireCount * areaFactor;
+            
+            // หาขนาดท่อที่เหมาะสม (ใช้พื้นที่ 40% ของท่อสำหรับการระบายความร้อน)
+            const requiredPipeArea = totalWireArea / 0.4;
+            
+            // ค้นหาท่อที่ใหญ่พอ
+            let selectedPipe = PIPE_SIZES.find(p => p.area >= requiredPipeArea);
+            if (!selectedPipe) {
+                selectedPipe = PIPE_SIZES[PIPE_SIZES.length - 1];
+            }
+            
+            // ตรวจสอบจำนวนสายสูงสุดตามมาตรฐาน
+            if (wireCount > selectedPipe.maxWires1) {
+                // ต้องใช้ท่อที่ใหญ่ขึ้น
+                selectedPipe = PIPE_SIZES.find(p => p.maxWires1 >= wireCount) || PIPE_SIZES[PIPE_SIZES.length - 1];
+            }
+            
+            return selectedPipe;
+        }
+
+        function displayWireResults(voltage, current, wire, breaker, voltageDrop, voltageDropPercent, 
+                                   wireTypeInfo, tempRise, wireTemp, powerLoss, pipeSize,
+                                   totalDerating, wireCount, ambientTemp, installationType, systemKey,
+                                   powerValue, powerUnit) {
+            const resultDiv = document.getElementById('wireResultContent');
+            
+            // สร้างสายไฟตามระบบไฟฟ้า
+            let wiresHTML = '';
+            let systemInfo = '';
+            
+            if (systemKey && ELECTRICAL_SYSTEMS[systemKey]) {
+                const system = ELECTRICAL_SYSTEMS[systemKey];
+                systemInfo = system.name;
+                
+                wiresHTML = '<div class="wire-display">';
+                system.wires.forEach(wireItem => {
+                    const wireColor = wireItem.color;
+                    const wireName = wireItem.name;
+                    wiresHTML += `
+                        <div class="wire wire-${wireColor}">${wireName}<br>${wire.size} mm²</div>
+                    `;
+                });
+                wiresHTML += '</div>';
+            } else {
+                // กรณีไม่มีระบบไฟฟ้าเลือก (ใช้ระบบเริ่มต้น)
+                if (voltage === 220) {
+                    wiresHTML = `
+                        <div class="wire-display">
+                            <div class="wire wire-brown">L (สายไฟ)<br>${wire.size} mm²</div>
+                            <div class="wire wire-blue">N (สายนิวตรอน)<br>${wire.size} mm²</div>
+                            <div class="wire wire-green">G (สายกราวด์)<br>${wire.size} mm²</div>
+                        </div>
+                    `;
+                } else if (voltage === 380) {
+                    wiresHTML = `
+                        <div class="wire-display">
+                            <div class="wire wire-brown">L1 (เฟส 1)<br>${wire.size} mm²</div>
+                            <div class="wire wire-black">L2 (เฟส 2)<br>${wire.size} mm²</div>
+                            <div class="wire wire-gray">L3 (เฟส 3)<br>${wire.size} mm²</div>
+                            <div class="wire wire-blue">N (นิวตรอน)<br>${wire.size} mm²</div>
+                            <div class="wire wire-green">G (สายกราวด์)<br>${wire.size} mm²</div>
+                        </div>
+                    `;
+                }
+            }
+
+            let warningHTML = '';
+            if (voltageDropPercent > 3) {
+                warningHTML = `
+                    <div class="warning">
+                        ⚠️ <strong>คำเตือน:</strong> แรงดันตกคร่อมเกินมาตรฐาน (> 3%) 
+                        ควรเพิ่มขนาดสายไฟหรือลดความยาวของสาย
+                    </div>
+                `;
+            }
+            
+            // คำเตือนอุณหภูมิ
+            if (wireTemp > wireTypeInfo.maxTemp) {
+                warningHTML += `
+                    <div class="warning">
+                        ⚠️ <strong>คำเตือน:</strong> อุณหภูมิสายไฟเกินมาตรฐาน (> ${wireTypeInfo.maxTemp}°C)
+                        ควรเพิ่มขนาดสายไฟหรือลดโหลด
+                    </div>
+                `;
+            }
+            
+            // แสดงหน่วยกำลังไฟเดิม
+            const powerUnitText = {
+                'W': 'วัตต์',
+                'A': 'แอมแปร์',
+                'HP': 'แรงม้า'
+            }[powerUnit] || powerUnit;
+            
+            // แสดงผลการคำนวณความร้อน
+            const heatCalcHTML = `
+                <div class="heat-calc">
+                    <div class="result-label">📈 การคำนวณความร้อน</div>
+                    <div class="result-value">กำลังไฟฟ้าที่ใช้: ${powerValue} ${powerUnitText}</div>
+                    <div class="result-value">กำลังงานสูญเสีย: ${powerLoss.toFixed(2)} W</div>
+                    <div class="result-value">อุณหภูมิเพิ่ม: ${tempRise.toFixed(1)}°C</div>
+                    <div class="result-value">อุณหภูมิสายไฟ: ${wireTemp.toFixed(1)}°C</div>
+                    <small>อุณหภูมิแวดล้อม: ${ambientTemp}°C | จำนวนสายในท่อ: ${wireCount} สาย</small>
+                    <br>
+                    <small>Derating Factor รวม: ${totalDerating.toFixed(2)}</small>
+                </div>
+            `;
+            
+            // แสดงผลขนาดท่อ
+            const pipeHTML = `
+                <div class="result-item">
+                    <div class="result-label">📏 ขนาดท่อที่แนะนำ</div>
+                    <div class="pipe-display">
+                        <div class="pipe">${pipeSize.size}<br>(${pipeSize.diameter}mm)</div>
+                    </div>
+                    <small>รองรับได้สูงสุด: ${pipeSize.maxWires1} สาย (สายไฟเดี่ยว)</small>
+                    <br>
+                    <small>ประเภทการติดตั้ง: ${getInstallationTypeText(installationType)}</small>
+                </div>
+            `;
+            
+            // แสดงจำนวนสายที่คำนวณ
+            const wireCountInfo = systemKey && ELECTRICAL_SYSTEMS[systemKey] ? 
+                `<div class="wire-count-info">
+                    <strong>ระบบไฟฟ้า:</strong> ${ELECTRICAL_SYSTEMS[systemKey].name}<br>
+                    <strong>จำนวนสาย:</strong> ${wireCount} สาย (${ELECTRICAL_SYSTEMS[systemKey].description})
+                </div>` : '';
+
+            resultDiv.innerHTML = `
+                <div class="result-item">
+                    <div class="result-label">กำลังไฟฟ้าที่ใช้</div>
+                    <div class="result-value">${powerValue} ${powerUnitText}</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label">กระแสไฟฟ้าที่คำนวณได้</div>
+                    <div class="result-value">${current.toFixed(2)} A</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label">ชนิดสายไฟที่เลือก</div>
+                    <div class="result-value">${wireTypeInfo.name}</div>
+                    <small>${wireTypeInfo.description} | อุณหภูมิสูงสุด: ${wireTypeInfo.maxTemp}°C</small>
+                </div>
+                
+                ${wireCountInfo}
+                
+                <div class="result-item">
+                    <div class="result-label">ขนาดสายไฟที่แนะนำ</div>
+                    ${wiresHTML}
+                </div>
+                
+                ${pipeHTML}
+                
+                <div class="result-item">
+                    <div class="result-label">ขนาดเบรกเกอร์ที่แนะนำ</div>
+                    <div class="result-value">${breaker} A</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label">แรงดันตกคร่อม</div>
+                    <div class="result-value">
+                        ${voltageDrop.toFixed(2)} V (${voltageDropPercent.toFixed(2)}%)
+                    </div>
+                </div>
+                
+                ${heatCalcHTML}
+                ${warningHTML}
+            `;
+
+            document.getElementById('wireResult').classList.add('show');
+            
+            // เลื่อนไปที่ผลลัพธ์
+            document.getElementById('wireResult').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getInstallationTypeText(type) {
+            const types = {
+                'conduit': 'ร้อยท่อ',
+                'trunking': 'ราง/ท่อร้อยสาย',
+                'open': 'เปิดโล่ง',
+                'buried': 'ฝังดิน'
+            };
+            return types[type] || type;
+        }
+
+        // ============================================
+        // 9. ฟังก์ชันสำหรับใบเสนอราคา
         // ============================================
         
         function showQuoteModal(html) {
@@ -1237,7 +2345,6 @@
             document.getElementById('quoteModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
             
-            // รีเฟรช scroll ของ modal
             setTimeout(() => {
                 document.querySelector('.quote-body').scrollTop = 0;
             }, 100);
@@ -1337,14 +2444,12 @@
                 return;
             }
             
-            // คำนวณวัสดุอัตโนมัติใหม่ก่อนสร้างใบเสนอราคา
             calculateAutoMaterials();
             
             let allItems = [];
             let laborTotal = 0;
             let materialTotal = 0;
             
-            // งานเดินไฟ (ค่าแรง)
             currentData.wiring.forEach(item => {
                 const itemLabor = item.unitPrice * item.quantity;
                 laborTotal += itemLabor;
@@ -1359,7 +2464,6 @@
                 });
             });
             
-            // อุปกรณ์เสริม
             currentData.accessories.forEach(item => {
                 const itemTotal = item.price * item.qty;
                 materialTotal += itemTotal;
@@ -1374,7 +2478,6 @@
                 });
             });
             
-            // วัสดุอัตโนมัติ
             Object.entries(currentData.autoMaterials).forEach(([name, quantity]) => {
                 const price = CONFIG.autoMaterials[name] || 0;
                 if (price === 0) return;
@@ -1398,11 +2501,9 @@
             let tableRows = '';
             let itemCount = 1;
             
-            // จัดกลุ่มรายการตามประเภท
             const laborItems = allItems.filter(item => item.type === 'labor');
             const materialItems = allItems.filter(item => item.type === 'material');
             
-            // เพิ่มหัวข้อสำหรับค่าแรง
             if (laborItems.length > 0) {
                 tableRows += `
                     <tr style="background: #fff8e1;">
@@ -1424,7 +2525,6 @@
                 });
             }
             
-            // เพิ่มหัวข้อสำหรับวัสดุอุปกรณ์
             if (materialItems.length > 0) {
                 tableRows += `
                     <tr style="background: #e8f5e9;">
@@ -1574,14 +2674,13 @@
             printWindow.document.close();
             printWindow.focus();
             
-            // พิมพ์หลังจากโหลดหน้าเสร็จ
             setTimeout(() => {
                 printWindow.print();
             }, 500);
         }
 
         // ============================================
-        // 5. ฟังก์ชันแก้ไขและลบรายการอื่นๆ
+        // 10. ฟังก์ชันแก้ไขและลบ (เดินไฟภายใน)
         // ============================================
         
         function editWiringItem(id) {
@@ -1637,16 +2736,20 @@
         }
 
         // ============================================
-        // 6. โหลดครั้งแรก
+        // 11. โหลดครั้งแรก
         // ============================================
         
         document.addEventListener('DOMContentLoaded', function() {
+            initRadioGroups(); // เรียกใช้ฟังก์ชันสร้าง Radio Groups ใหม่
             initDropdowns();
             updateCabinetDisplay();
             updateWiringDisplay();
             
-            console.log('✅ แอพ "เพื่อนช่าง" พร้อมใช้งาน!');
-            console.log('🔧 แก้ไขปัญหาใบเสนอราคาแสดงไม่ครบแล้ว');
+            console.log('✅ แอพ "เพื่อนช่าง - ระบบครบวงจร" พร้อมใช้งาน!');
+            console.log('📦 ประกอบตู้');
+            console.log('🔌 เดินไฟภายใน');
+            console.log('📏 เครื่องคำนวณขนาดสายไฟ + ความร้อน + ท่อ');
+            console.log('🔧 มีตัวเลือกชนิดสายไฟ 6 ประเภท: THW, VCT, NYA, NYAF, XLPE, RG7');
         });
     </script>
 </body>
