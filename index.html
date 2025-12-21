@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>เพื่อนช่าง - ระบบครบวงจร</title>
-    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f527.svg" type="image/x-icon">
+    <title>เพื่อนช่าง - คำนวนค่าแรง และ ใบเสนอราคา</title>
+    <!-- ใช้ favicon จากไฟล์ local -->
+    <link rel="icon" href="icon.png" type="image/png">
     <style>
         /* CSS รีเซ็ตและพื้นฐาน */
         * { 
@@ -46,6 +47,7 @@
             padding: 20px 15px;
             text-align: center;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 15px;
@@ -56,10 +58,27 @@
             width: 60px;
             height: 60px;
             border-radius: 12px;
-            object-fit: contain;
             background: white;
             padding: 8px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-fallback {
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
         }
         
         .header h1 { 
@@ -786,9 +805,12 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <img src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f527.svg" alt="ไอคอนเพื่อนช่าง" class="logo">
+            <div class="logo">
+                <img src="icon.png" alt="ไอคอนเพื่อนช่าง" class="logo-img" onerror="this.style.display='none'; this.parentElement.querySelector('.logo-fallback').style.display='flex';">
+                <div class="logo-fallback" style="display: none;">🔧</div>
+            </div>
             <div>
-                <h1>⚡ เพื่อนช่าง - ระบบครบวงจร ⚡</h1>
+                <h1>⚡ เพื่อนช่าง ⚡</h1>
                 <p>คำนวณราคาอุปกรณ์ไฟฟ้า + เครื่องคำนวณขนาดสายไฟ</p>
             </div>
         </div>
@@ -1084,11 +1106,6 @@
                     wireSize: null, 
                     autoMaterials: [] 
                 },
-                '-เดินสาย Main 220.v ลอย ระยะ ≤ 50 ม.': { 
-                    price: 2500, 
-                    wireSize: null, 
-                    autoMaterials: [] 
-                },
                 '-เดินสาย Main 220.v ฝังดิน ระยะ ≤ 50 ม.': { 
                     price: 3500, 
                     wireSize: null, 
@@ -1104,17 +1121,17 @@
                     wireSize: null, 
                     autoMaterials: [] 
                 },
-                '-เดินสาย Main 380.v เสา 6.ม/ต้น': { 
+                '-Main 380.v เสา 6.ม/ต้น': { 
                     price: 1000, 
                     wireSize: null, 
                     autoMaterials: [] 
                 },
-                '-เดินสาย Main 380.v เสา 9.ม/ต้น': { 
+                '-Main 380.v เสา 9.ม/ต้น': { 
                     price: 1500, 
                     wireSize: null, 
                     autoMaterials: [] 
                 },
-                '-เดินสาย Main 380.v เสา 12.ม/ต้น': { 
+                '-Main 380.v เสา 12.ม/ต้น': { 
                     price: 2000, 
                     wireSize: null, 
                     autoMaterials: [] 
@@ -1129,10 +1146,6 @@
             },
             
             wiringByMeter: {
-                '-เดินสาย Main ส่วนเกิน ลอย': { 
-                    price: 100, 
-                    wireSize: null 
-                },
                 '-เดินสาย Main ส่วนเกิน ฝังดิน': { 
                     price: 200, 
                     wireSize: null 
@@ -1145,9 +1158,9 @@
                 '-สวิตไฟ': 33,
                 '-หลอดไฟ LED T5 PHILIPS 13W': 160,
                 '-หลอดไฟ LED T5 LAMPTAN 18W': 255,
-                '-ไฟดาวไลท์ 5 นิ้ว LAMPTAN 14W': 208,
-                '-ไฟดาวไลท์ 6 นิ้ว LAMPTAN 18W': 258,
-                '-ไฟดาวไลท์ 9 นิ้ว HI-TEX 18W': 188,
+                '-ดาวไลท์ 5 นิ้ว LAMPTAN 14W': 208,
+                '-ดาวไลท์ 6 นิ้ว LAMPTAN 18W': 258,
+                '-ดาวไลท์ 9 นิ้ว HI-TEX 18W': 188,
                 '-รางเดินสายไฟ': 56,
                 '-ท่อขาว 6หุน': 8,
                 '-ตู้ MDB กันดูด 6ch': 2180,
@@ -2750,6 +2763,22 @@
             console.log('🔌 เดินไฟภายใน');
             console.log('📏 เครื่องคำนวณขนาดสายไฟ + ความร้อน + ท่อ');
             console.log('🔧 มีตัวเลือกชนิดสายไฟ 6 ประเภท: THW, VCT, NYA, NYAF, XLPE, RG7');
+            
+            // ตรวจสอบว่า icon.png โหลดได้หรือไม่
+            const logoImg = document.querySelector('.logo-img');
+            if (logoImg) {
+                logoImg.onload = function() {
+                    console.log('✅ โหลดภาพ icon.png สำเร็จ');
+                };
+                logoImg.onerror = function() {
+                    console.log('⚠️ ไม่พบไฟล์ icon.png ใช้ fallback emoji แทน');
+                    // แสดง fallback
+                    const fallback = document.querySelector('.logo-fallback');
+                    if (fallback) {
+                        fallback.style.display = 'flex';
+                    }
+                };
+            }
         });
     </script>
 </body>
