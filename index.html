@@ -3234,7 +3234,38 @@
             btn.innerHTML = 'กำลังสร้าง PDF...';
             btn.disabled = true;
 
-            html2pdf().set(opt).from(element).save().then(() => {
+            html2pdf().set(opt).from(element).toPdf().get('pdf').then((pdf) => {
+                // วิธีที่ 1: พยายามดาวน์โหลดแบบปกติ
+                const blob = pdf.output('blob');
+                const url = URL.createObjectURL(blob);
+                
+                // สร้างลิงก์ดาวน์โหลดชั่วคราว
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = opt.filename;
+                
+                // สำหรับ Webview บางตัว การเปิดในหน้าต่างใหม่จะช่วยให้ระบบจัดการดาวน์โหลดทำงานได้
+                if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    // สำหรับ Webview บนมือถือ: พยายามเปิดในหน้าต่างใหม่ด้วย Blob URL
+                    const newWin = window.open(url, '_blank');
+                    if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
+                        // ถ้าเปิดหน้าต่างใหม่ไม่ได้ (ถูกบล็อก) ให้ลองใช้ iframe ในหน้าเดิม
+                        const reader = new FileReader();
+                        reader.onloadend = function() {
+                            const base64data = reader.result;
+                            // สร้างลิงก์ดาวน์โหลดแบบ Base64 เป็นทางเลือกสุดท้าย
+                            const a = document.createElement('a');
+                            a.href = base64data;
+                            a.download = opt.filename;
+                            a.click();
+                        };
+                        reader.readAsDataURL(blob);
+                    }
+                } else {
+                    // บนคอมพิวเตอร์: ดาวน์โหลดปกติ
+                    link.click();
+                }
+                
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }).catch(err => {
